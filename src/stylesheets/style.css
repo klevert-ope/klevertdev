@@ -1,0 +1,80 @@
+:root {
+  color: #000000;
+  background-color: #fcfcfc;
+}
+
+.inter-primary {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-optical-sizing: auto;
+  font-variation-settings: "slnt" 0;
+}
+
+.h-svh {
+  min-height: 100svh;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.capitalize-first-letter::first-letter {
+  text-transform: uppercase;
+}
+
+.text-black {
+  color: #000000;
+}
+
+.letter-space-xs {
+  letter-spacing: 4px;
+}
+
+.hide {
+  display: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.green-text {
+  color: rgb(0, 175, 80);
+}
+
+.unset {
+  all: unset;
+}
+
+.ql-container.ql-snow {
+  min-height: 40svh;
+  border: none;
+}
+
+p:has(img) {
+  max-width: 350px;
+  height: auto;
+}
+
+.ql-code-block {
+  padding: 8px;
+  color: rgb(0, 175, 80);
+}
+
+.ql-code-block-container {
+  border-radius: 8px;
+  background-color: #141414;
+}
+
+.ql-indent-1 {
+  padding: 10px;
+}
+
+blockquote:has(span) {
+  font-style: italic;
+  padding: 10px;
+}
+
+.line-h-small {
+  line-height: 20px;
+}

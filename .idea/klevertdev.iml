@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/temp" />
+      <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/node_modules" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="image-resize" level="application" />
+    <orderEntry type="library" name="quill-image-compress" level="application" />
+    <orderEntry type="library" name="highlight.js" level="application" />
+    <orderEntry type="library" name="@highlightjs/cdn-assets" level="application" />
+    <orderEntry type="library" name="dompurify" level="application" />
+    <orderEntry type="library" name="quill" level="application" />
+    <orderEntry type="library" name="highlight.js" level="application" />
+    <orderEntry type="library" name="quill" level="application" />
+    <orderEntry type="library" name="@highlightjs/cdn-assets" level="application" />
+  </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="3424fde7-be69-40b0-928b-74afecaaf079" />
+  </component>
+</module>

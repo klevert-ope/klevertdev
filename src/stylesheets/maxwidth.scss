@@ -1,0 +1,27 @@
+// _max-width.scss
+
+$small-max-width: 200px;
+$medium-max-width: 350px;
+$large-max-width: 600px;
+$xlarge-max-width: 800px;
+$xxlarge-max-width: 1000px;
+
+.small-max-width {
+  max-width: $small-max-width;
+}
+
+.medium-max-width {
+  max-width: $medium-max-width;
+}
+
+.large-max-width {
+  max-width: $large-max-width;
+}
+
+.xlarge-max-width {
+  max-width: $xlarge-max-width;
+}
+
+.xxlarge-max-width {
+  max-width: $xxlarge-max-width;
+}

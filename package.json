@@ -1,0 +1,28 @@
+{
+  "name": "klevertdev",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^3.1.1",
+    "@sveltejs/kit": "^2.5.4",
+    "@sveltejs/vite-plugin-svelte": "^3.0.2",
+    "gsap": "file:gsap-bonus.tgz",
+    "prettier": "3.2.5",
+    "sass": "^1.72.0",
+    "svelte": "^4.2.12",
+    "svelte-check": "^3.6.8",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.6",
+    "vite-plugin-sass": "^0.1.0",
+    "zod": "^3.22.4"
+  },
+  "type": "module"
+}

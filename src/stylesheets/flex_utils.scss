@@ -1,0 +1,37 @@
+// _flex-utils.scss
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  @extend .flex;
+  flex-direction: row;
+}
+
+.flex-col {
+  @extend .flex;
+  flex-direction: column;
+}
+
+.flex-end {
+  @extend .flex;
+  justify-content: flex-end;
+}
+
+.flex-row-between {
+  @extend .flex-row;
+  justify-content: space-between;
+}
+
+.flex-row-center {
+  @extend .flex-row;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-col-center {
+  @extend .flex-col;
+  justify-content: center;
+  align-items: center;
+}
