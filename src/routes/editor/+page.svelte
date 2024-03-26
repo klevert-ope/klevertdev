@@ -1,15 +1,33 @@
+<svelte:head>
+  <title>Editor</title>
+  <script
+    src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.3/dist/quill.js"></script>
+  <link
+    href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.3/dist/quill.snow.css"
+    rel="stylesheet"
+  />
+</svelte:head>
+
 <script lang="ts">
   import { z } from "zod";
   import { blogPostSchema } from "./postSchema";
   import QuillEditor from "./quillEditor.svelte";
   import { editorContent, resetEditorContent } from "./editorContentStore";
+
   import Smoother from "$lib/smoothscroll.svelte";
   import Footer from "$lib/footer.svelte";
-  import Toast from "$lib/toast.svelte";
+  import ToastSuccess from "$lib/toastsuccess.svelte";
+  import ToastError from "$lib/toasterror.svelte";
 
+
+  const initialFormData = { title: "", excerpt: "", body: "", token: "" };
+  const initialFormErrors = { title: "", excerpt: "", body: "", token: "" };
+  const postsApiUrl = import.meta.env.VITE_POSTSAPI_URL;
+  const bearerAuthToken = import.meta.env.VITE_BEARER_TOKEN;
 
   let wordCountTitle = 0;
   let wordCountExcerpt = 0;
+  let showPassword = false;
 
   interface FormData {
     title: string;
@@ -23,28 +41,31 @@
     errors: z.infer<typeof blogPostSchema>;
     isSubmitting: boolean;
     successMessage: string;
+    errorMessage: string;
   } = {
-    data: {
-      title: "",
-      excerpt: "",
-      body: "",
-      token: ""
-    },
-    errors: { title: "", excerpt: "", body: "", token: "" },
+    data: { ...initialFormData },
+    errors: { ...initialFormErrors },
     isSubmitting: false,
-    successMessage: ""
+    successMessage: "",
+    errorMessage: ""
   };
-
-  let show_password = false;
 
   $: form.data.body = $editorContent;
 
+  function resetForm() {
+    form.data = { ...initialFormData };
+    form.errors = { ...initialFormErrors };
+    wordCountTitle = 0;
+    wordCountExcerpt = 0;
+    showPassword = false;
+  }
+
   function handleInputChangeError() {
-    form.errors = { title: "", excerpt: "", body: "", token: "" };
+    form.errors = { ...initialFormErrors };
   }
 
   function handleInputTitle(event: Event) {
-    form.errors = { title: "", excerpt: "", body: "", token: "" };
+    handleInputChangeError();
     if (event.target instanceof HTMLTextAreaElement) {
       form.data.title = event.target.value;
       wordCountTitle = form.data.title.trim().split(/\s+/).length;
@@ -61,6 +82,25 @@
   export async function handleSubmit() {
     form.isSubmitting = true;
     form.successMessage = "";
+    form.errorMessage = "";
+    form.errors = { ...initialFormErrors };
+
+    if (wordCountTitle > 15) {
+      form.errors.title = "Title cannot exceed 15 words";
+      form.isSubmitting = false;
+      return;
+    }
+    if (wordCountExcerpt > 60) {
+      form.errors.excerpt = "Excerpt cannot exceed 60 words";
+      form.isSubmitting = false;
+      return;
+    }
+
+    if (form.data.token.trim() !== bearerAuthToken) {
+      form.errors.token = "Token is incorrect";
+      form.isSubmitting = false;
+      return;
+    }
 
     const validation = blogPostSchema.safeParse(form.data);
 
@@ -72,13 +112,9 @@
       form.isSubmitting = false;
       return;
     }
-    if (form.data.token.trim() !== import.meta.env.VITE_BEARER_TOKEN) {
-      form.errors.token = "Invalid token";
-      form.isSubmitting = false;
-      return;
-    }
+
     try {
-      const response = await fetch("https://blogapi.klevertopee.com/posts", {
+      const response = await fetch(`${postsApiUrl}/posts`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${form.data.token}`,
@@ -88,23 +124,26 @@
       });
 
       if (!response.ok) {
-        new Error("Failed to submit post");
+        const responseData = await response.json();
+        form.errorMessage = `Error from API: ${responseData.message}`;
+        form.isSubmitting = false;
+        return form;
       }
 
       form.successMessage = "Post submitted successfully!";
-      form.data = { title: "", excerpt: "", body: "", token: "" };
+      resetForm();
       resetEditorContent();
-    } catch (error) {
-      console.error("Error submitting post:", error);
-    } finally {
       form.isSubmitting = false;
+
+      return form;
+
+    } catch (error) {
+      form.errorMessage = "Error submitting post. Please try again.";
+      form.isSubmitting = false;
+      return form;
     }
   }
 </script>
-
-<svelte:head>
-  <title>Editor</title>
-</svelte:head>
 
 <Smoother>
   <section>
@@ -118,7 +157,7 @@
                           handleInputChangeError();
                           handleInputTitle(event);
                       }}
-                placeholder="Title..."
+                placeholder="Write your title..."
       />
       <p class="font-xs flex-end">{wordCountTitle}/15 Words</p>
       {#if form.errors.title}
@@ -133,7 +172,7 @@
                           handleInputChangeError();
                           handleInputExcerpt(event);
                       }}
-                placeholder="Excerpt..."
+                placeholder="Write your excerpt..."
       />
       <p class="font-xs flex-end">{wordCountExcerpt}/60 Words</p>
       {#if form.errors.excerpt}
@@ -150,7 +189,7 @@
       <label class="padding-top font-lg font-semi-bold" for="token">Bearer
         Token</label>
       <div class="password-field flex-row">
-        {#if show_password}
+        {#if showPassword}
           <input type="text" autocomplete="off"
                  bind:value={form.data.token}
                  id="token"
@@ -163,9 +202,9 @@
         {/if}
         <button
           class="unset"
-          on:click={() => show_password = !show_password}
+          on:click={() => showPassword = !showPassword}
           type="button">
-          {#if show_password}
+          {#if showPassword}
             <svg width="30px" height="30px"
                  viewBox="0 0 24.00 24.00" fill="none"
                  xmlns="http://www.w3.org/2000/svg">
@@ -249,8 +288,11 @@
         </button>
       </div>
 
-      {#if form.successMessage}
-        <Toast message={form.successMessage} />
+      {#if form.successMessage && !form.errorMessage}
+        <ToastSuccess message={form.successMessage} />
+      {/if}
+      {#if form.errorMessage}
+        <ToastError message={form.errorMessage} />
       {/if}
     </form>
   </section>
@@ -272,8 +314,33 @@
 		}
 
 	textarea {
-		height: 150px;
+		height: 100px;
 		resize: vertical;
+		}
+
+	textarea:focus {
+		outline: 1px solid #5e5d5d;
+		}
+
+	::-webkit-input-placeholder { /* WebKit browsers (Chrome, Safari) */
+		font-size: 13px;
+		font-weight: normal;
+		font-style: italic;
+		color: #5e5d5d;
+		}
+
+	:-moz-placeholder { /* Mozilla Firefox */
+		font-size: 13px;
+		font-weight: normal;
+		font-style: italic;
+		color: #5e5d5d;
+		}
+
+	::-ms-input-placeholder { /* Internet Explorer 10-11 */
+		font-size: 13px;
+		font-weight: normal;
+		font-style: italic;
+		color: #5e5d5d;
 		}
 
 	.nowrap {
@@ -304,5 +371,4 @@
 	.errormessage {
 		color: red;
 		}
-
 </style>

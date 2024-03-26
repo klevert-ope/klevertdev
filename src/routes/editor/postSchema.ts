@@ -6,7 +6,7 @@ export const blogPostSchema = z.object({
     .min(1, "Title cannot be empty")
     .trim()
     .refine((value) => {
-      const wordCount = value.split(/\s+/).length;
+      const wordCount = value.trim().split(/\s+/).length;
       return wordCount <= 15 ? true : "Title cannot exceed 15 words";
     }),
   excerpt: z
@@ -21,7 +21,7 @@ export const blogPostSchema = z.object({
     .min(1, "Body cannot be empty")
     .refine((value) => {
       const wordCount = value.trim().split(/\s+/).length;
-      return wordCount <= 1500 ? true : "Excerpt cannot exceed 1500 words";
+      return wordCount <= 1500 ? true : "Body cannot exceed 1500 words";
     }),
   token: z.string().min(1, "Token cannot be empty"),
 });

@@ -57,10 +57,6 @@ Q
 !.svelte-kit/generated/root.svelte,b\9\b961a6ca60c0352639588b30bee2b486555563da
 O
 src/stylesheets/containers.scss,f\2\f2caff758bcac8c878cae59dcc17e516cb4a12fc
-D
-src/lib/Toast.svelte,b\a\baa97de10d46c7f546a087ae4aa26c2f611e3ff2
-D
-src/lib/toast.svelte,7\0\70c68f4d952346eb89fc9aba84d082bf18866bf0
 G
 static/site.webmanifest,5\5\55a57cc923ba19c81de055afe52cfb5c7a3bb890
 A
@@ -82,3 +78,14 @@ M
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+:
+
+Dockerfile,6\6\6651ddff6eb82c840ced7c1dddee15c6e1913dd4
+=
+.dockerignore,0\5\05a721ebe3ba0754116825ed1359ff1785f4bbac
+h
+8vite.config.ts.timestamp-1711386146358-a9e41f8a9c329.mjs,1\9\193937f6e061a359210e6f54330438944adb43cd
+I
+src/lib/toasterror.svelte,c\0\c031268e65eea3e3c03da83bd1ff709255b7bb2a
+K
+src/lib/toastsuccess.svelte,6\b\6be701c780e8c314b24d60fc756d6cf920b6fe05

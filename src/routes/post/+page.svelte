@@ -1,6 +1,24 @@
+<svelte:head>
+  <title>Blogpost</title>
+  <meta content="Here, I share my programming experiences and insights into the
+      ever-evolving world of technology, from tackling programming
+      challenges to exploring the latest trends. Interested? Give it a
+      read!" name="description" />
+  <script
+    src="https://cdn.jsdelivr.net/npm/dompurify@3.0.11/dist/purify.min.js">
+  </script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.3/dist/quill.js"></script>
+  <link
+    href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.3/dist/quill.snow.css"
+    rel="stylesheet"
+  />
+</svelte:head>
+
 <script lang="ts">
   import { writable } from "svelte/store";
   import { onMount } from "svelte";
+
   import Smoother from "$lib/smoothscroll.svelte";
   import Footer from "$lib/footer.svelte";
   import Nav from "$lib/nav.svelte";
@@ -11,9 +29,11 @@
     body: string;
   }
 
-  export const post = writable<Post | null>(null);
-  export const isLoading = writable(true);
-  export const error = writable<string | null>(null);
+  const postsApiUrl = import.meta.env.VITE_POSTSAPI_URL;
+  const bearerAuthToken = import.meta.env.VITE_BEARER_TOKEN;
+  const post = writable<Post | null>(null);
+  const isLoading = writable(true);
+  const error = writable<string | null>(null);
 
   function convertDeltaToHtml(delta: any): string {
     // @ts-ignore
@@ -35,9 +55,10 @@
     }
 
     try {
-      const response = await fetch(`https://blogapi.klevertopee.com/posts?id=${id}`, {
+      const response = await fetch(`${postsApiUrl}/posts?id=${id}`, {
+        method: "GET",
         headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_BEARER_TOKEN}`
+          Authorization: `Bearer ${bearerAuthToken}`
         }
       });
 
@@ -53,7 +74,7 @@
         body: convertDeltaToHtml(parsedDelta)
       });
     } catch (err: any) {
-      error.set(err.message);
+      error.set("Failed to load post. Please try again later.");
     } finally {
       isLoading.set(false);
     }
@@ -62,13 +83,6 @@
   onMount(fetchPost);
 </script>
 
-<svelte:head>
-  <title>Blogpost</title>
-  <meta content="Here, I share my programming experiences and insights into the
-      ever-evolving world of technology, from tackling programming
-      challenges to exploring the latest trends. Interested? Give it a
-      read!" name="description" />
-</svelte:head>
 <Smoother>
   <Nav />
   <section class="container h-svh">

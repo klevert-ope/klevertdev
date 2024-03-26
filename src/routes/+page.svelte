@@ -1,13 +1,21 @@
+<svelte:head>
+  <title>Klevert Opee</title>
+  <meta content="A software engineer based in kenya" name="description" />
+</svelte:head>
+
 <script lang="ts">
   import { writable } from "svelte/store";
   import { onMount } from "svelte";
+  import { page } from "$app/stores";
+
   import timeSince from "$lib/timeago";
   import Smoother from "$lib/smoothscroll.svelte";
   import Footer from "$lib/footer.svelte";
   import Nav from "$lib/nav.svelte";
-  import { page } from "$app/stores";
   import MailButton from "$lib/mailbutton.svelte";
 
+  const postsApiUrl = import.meta.env.VITE_POSTSAPI_URL;
+  const bearerAuthToken = import.meta.env.VITE_BEARER_TOKEN;
 
   interface Post {
     id: string;
@@ -27,23 +35,25 @@
     error.set(null);
 
     try {
-      const response = await fetch("https://blogapi.klevertopee.com/posts", {
+      const response = await fetch(`${postsApiUrl}/posts`, {
+        method: "GET",
         headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_BEARER_TOKEN}`
+          Authorization: `Bearer ${bearerAuthToken}`
         }
       });
 
       if (!response.ok) {
-        new Error(`Error fetching post: ${response.statusText}`);
+        throw new Error(`Error fetching posts: ${response.statusText}`);
       }
+
       const fetchedPosts = await response.json();
       const sortedPosts = fetchedPosts.sort((a: Post, b: Post) => {
         return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
       });
 
       posts.set(sortedPosts);
-    } catch (err: any) {
-      error.set(err.message);
+    } catch (err) {
+      error.set("Failed to load posts. Please try again later.");
     } finally {
       isLoading.set(false);
     }
@@ -52,9 +62,6 @@
   onMount(fetchPosts);
 </script>
 
-<svelte:head>
-  <title>Klevert Opee</title>
-</svelte:head>
 
 <Smoother>
   <Nav />

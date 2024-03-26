@@ -223,3 +223,7 @@ h6 {
   color: #fcfcfc;
   background-color: #141414;
 }
+
+::placeholder {
+  font: 10px;
+}

@@ -3,13 +3,13 @@
   import { editorContent } from "./editorContentStore";
 
   let QuillEditor: any;
-  let wordCount = 0;
+  let wordCountBody = 0;
 
   const updateWordCount = () => {
     if (QuillEditor) {
       const text = QuillEditor.getText();
       const words = text.trim().split(/\s+/);
-      wordCount = words.length;
+      wordCountBody = words.length;
     }
   };
 
@@ -53,4 +53,4 @@
 </script>
 
 <div bind:this={QuillEditor} id="editorBody"></div>
-<p class="font-xs flex-end">{wordCount}/1500 Words</p>
+<p class="font-xs flex-end">{wordCountBody}/1500 Words</p>
