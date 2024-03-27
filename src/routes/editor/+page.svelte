@@ -322,21 +322,28 @@
 		outline: 1px solid #5e5d5d;
 		}
 
-	::-webkit-input-placeholder { /* WebKit browsers (Chrome, Safari) */
+	textarea::placeholder {
 		font-size: 13px;
 		font-weight: normal;
 		font-style: italic;
 		color: #5e5d5d;
 		}
 
-	:-moz-placeholder { /* Mozilla Firefox */
+	textarea::-webkit-input-placeholder { /* WebKit browsers (Chrome, Safari) */
 		font-size: 13px;
 		font-weight: normal;
 		font-style: italic;
 		color: #5e5d5d;
 		}
 
-	::-ms-input-placeholder { /* Internet Explorer 10-11 */
+	textarea:-moz-placeholder { /* Mozilla Firefox */
+		font-size: 13px;
+		font-weight: normal;
+		font-style: italic;
+		color: #5e5d5d;
+		}
+
+	textarea::-ms-input-placeholder { /* Internet Explorer 10-11 */
 		font-size: 13px;
 		font-weight: normal;
 		font-style: italic;

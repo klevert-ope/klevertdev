@@ -1,9 +1,14 @@
 <svelte:head>
-  <title>Blogpost</title>
-  <meta content="Here, I share my programming experiences and insights into the
-      ever-evolving world of technology, from tackling programming
-      challenges to exploring the latest trends. Interested? Give it a
-      read!" name="description" />
+  {#if $post}
+    <title>{$post.title}</title>
+    <meta name="description" content={$post.excerpt} />
+    <meta itemprop="name" content={$post.title} />
+    <meta itemprop="description" content={$post.excerpt} />
+    <meta property="og:title" content={$post.title} />
+    <meta property="og:description" content={$post.excerpt} />
+    <meta property="twitter:title" content={$post.title} />
+    <meta property="twitter:description" content={$post.excerpt} />
+  {/if}
   <script
     src="https://cdn.jsdelivr.net/npm/dompurify@3.0.11/dist/purify.min.js">
   </script>
@@ -26,6 +31,7 @@
   interface Post {
     id: string;
     title: string;
+    excerpt: string;
     body: string;
   }
 
@@ -71,6 +77,7 @@
       post.set({
         id: postData.id,
         title: postData.title,
+        excerpt: postData.excerpt,
         body: convertDeltaToHtml(parsedDelta)
       });
     } catch (err: any) {
