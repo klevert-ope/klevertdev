@@ -1,44 +1,44 @@
 <script lang="ts">
-    import {onMount} from 'svelte';
+    import { onMount } from "svelte";
 
     let currentYear: number;
 
-    onMount(() => {
-        const date = new Date();
-        currentYear = date.getFullYear();
-    });
+  onMount(() => {
+    const date = new Date();
+    currentYear = date.getFullYear();
+  });
 </script>
 
 <section class="padding-y container">
-    <h1 class="padding-top font-xl text-center">GET IN TOUCH</h1>
-    <div class="padding-top flex-col-center">
-        <a
-                class="text-underline font-md font-light text-black letter-space-xs mail"
-                href="mailto:klevertope@gmail.com"
-        >
-            klevertope@gmail.com
-        </a>
-        <a
-                class="padding-top"
-                href="https://github.com/klevert-ope"
-                target="_blank"
-        >
-            <svg fill="#000000" height="24px" viewBox="0 0 20 20"
-                 width="24px">
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                   stroke-linejoin="round"></g>
-                <g id="SVGRepo_iconCarrier"><title>github [#142]</title>
-                    <desc>Created with Sketch.</desc>
-                    <defs></defs>
-                    <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none"
-                       stroke-width="1">
-                        <g fill="#000000"
-                           id="Dribbble-Light-Preview"
-                           transform="translate(-140.000000, -7559.000000)">
-                            <g id="icons"
-                               transform="translate(56.000000, 160.000000)">
-                                <path d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,
+  <h1 class="padding-y font-xl text-center">Get In Touch</h1>
+  <div class="flex-col-center padding-y">
+    <a
+      class="text-underline font-xs font-light text-black letter-space-xs mail"
+      href="mailto:klevertope@gmail.com"
+    >
+      klevertope@gmail.com
+    </a>
+    <a
+      class="padding-top"
+      href="https://github.com/klevert-ope"
+      target="_blank"
+    >
+      <svg fill="#000000" height="24px" viewBox="0 0 20 20"
+           width="24px">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+           stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier"><title>github [#142]</title>
+          <desc>Created with Sketch.</desc>
+          <defs></defs>
+          <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none"
+             stroke-width="1">
+            <g fill="#000000"
+               id="Dribbble-Light-Preview"
+               transform="translate(-140.000000, -7559.000000)">
+              <g id="icons"
+                 transform="translate(56.000000, 160.000000)">
+                <path d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,
                                 7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,
                                 7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,
                                 7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,
@@ -52,18 +52,18 @@
                                 7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,
                                 7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,
                                 7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399"
-                                      id="github-[#142]"></path>
-                            </g>
-                        </g>
-                    </g>
-                </g>
-            </svg>
-        </a>
-    </div>
-    <div class="padding-top flex-col-center">
-        <small class="font-xs font-semi-bold">
-            Klevert &copy; {currentYear} All rights reserved.
-        </small>
-    </div>
+                      id="github-[#142]"></path>
+              </g>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </a>
+  </div>
+  <div class="padding-top flex-col-center">
+    <small class="font-xs font-semi-bold">
+      Klevert &copy; {currentYear} All rights reserved.
+    </small>
+  </div>
 </section>
 

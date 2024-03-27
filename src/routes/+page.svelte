@@ -4,9 +4,10 @@
 </svelte:head>
 
 <script lang="ts">
-  import { writable } from "svelte/store";
   import { onMount } from "svelte";
   import { page } from "$app/stores";
+  import { error, isLoading, posts } from "./store";
+
 
   import timeSince from "$lib/timeago";
   import Smoother from "$lib/smoothscroll.svelte";
@@ -16,6 +17,7 @@
 
   const postsApiUrl = import.meta.env.VITE_POSTSAPI_URL;
   const bearerAuthToken = import.meta.env.VITE_BEARER_TOKEN;
+  const numberPosts = 10;
 
   interface Post {
     id: string;
@@ -23,12 +25,6 @@
     excerpt: string;
     created_at: string;
   }
-
-  let numberPosts = 10;
-
-  export const posts = writable<Post[]>([]);
-  export const isLoading = writable(true);
-  export const error = writable<string | null>(null);
 
   async function fetchPosts() {
     isLoading.set(true);

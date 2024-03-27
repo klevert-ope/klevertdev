@@ -21,25 +21,15 @@
 </svelte:head>
 
 <script lang="ts">
-  import { writable } from "svelte/store";
   import { onMount } from "svelte";
+  import { error, isLoading, post } from "./store";
 
   import Smoother from "$lib/smoothscroll.svelte";
   import Footer from "$lib/footer.svelte";
   import Nav from "$lib/nav.svelte";
 
-  interface Post {
-    id: string;
-    title: string;
-    excerpt: string;
-    body: string;
-  }
-
   const postsApiUrl = import.meta.env.VITE_POSTSAPI_URL;
   const bearerAuthToken = import.meta.env.VITE_BEARER_TOKEN;
-  const post = writable<Post | null>(null);
-  const isLoading = writable(true);
-  const error = writable<string | null>(null);
 
   function convertDeltaToHtml(delta: any): string {
     // @ts-ignore
@@ -49,7 +39,6 @@
     // @ts-ignore
     return DOMPurify.sanitize(rawHtml);
   }
-
 
   async function fetchPost() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -80,7 +69,7 @@
         excerpt: postData.excerpt,
         body: convertDeltaToHtml(parsedDelta)
       });
-    } catch (err: any) {
+    } catch (err) {
       error.set("Failed to load post. Please try again later.");
     } finally {
       isLoading.set(false);

@@ -9,10 +9,17 @@
 </svelte:head>
 
 <script lang="ts">
-  import { z } from "zod";
   import { blogPostSchema } from "./postSchema";
-  import QuillEditor from "./quillEditor.svelte";
-  import { editorContent, resetEditorContent } from "./editorContentStore";
+  import QuillEditorForm from "./quillEditor.svelte";
+  import {
+    editorContent,
+    form,
+    initialFormData,
+    initialFormErrors,
+    QuillEditor,
+    wordCountExcerpt,
+    wordCountTitle
+  } from "./store";
 
   import Smoother from "$lib/smoothscroll.svelte";
   import Footer from "$lib/footer.svelte";
@@ -20,44 +27,28 @@
   import ToastError from "$lib/toasterror.svelte";
 
 
-  const initialFormData = { title: "", excerpt: "", body: "", token: "" };
-  const initialFormErrors = { title: "", excerpt: "", body: "", token: "" };
   const postsApiUrl = import.meta.env.VITE_POSTSAPI_URL;
   const bearerAuthToken = import.meta.env.VITE_BEARER_TOKEN;
 
-  let wordCountTitle = 0;
-  let wordCountExcerpt = 0;
+
   let showPassword = false;
 
-  interface FormData {
-    title: string;
-    excerpt: string;
-    body: string;
-    token: string;
-  }
-
-  let form: {
-    data: FormData;
-    errors: z.infer<typeof blogPostSchema>;
-    isSubmitting: boolean;
-    successMessage: string;
-    errorMessage: string;
-  } = {
-    data: { ...initialFormData },
-    errors: { ...initialFormErrors },
-    isSubmitting: false,
-    successMessage: "",
-    errorMessage: ""
-  };
 
   $: form.data.body = $editorContent;
 
   function resetForm() {
     form.data = { ...initialFormData };
     form.errors = { ...initialFormErrors };
-    wordCountTitle = 0;
-    wordCountExcerpt = 0;
+    wordCountTitle.set(0);
+    wordCountExcerpt.set(0);
     showPassword = false;
+  }
+
+  function resetEditorContent() {
+    if ($QuillEditor !== null && $QuillEditor !== undefined) {
+      $QuillEditor.setContents([{ insert: "" }]);
+      editorContent.set("");
+    }
   }
 
   function handleInputChangeError() {
@@ -68,14 +59,14 @@
     handleInputChangeError();
     if (event.target instanceof HTMLTextAreaElement) {
       form.data.title = event.target.value;
-      wordCountTitle = form.data.title.trim().split(/\s+/).length;
+      wordCountTitle.set(form.data.title.trim().split(/\s+/).length);
     }
   }
 
   function handleInputExcerpt(event: Event) {
     if (event.target instanceof HTMLTextAreaElement) {
       form.data.excerpt = event.target.value;
-      wordCountExcerpt = form.data.excerpt.trim().split(/\s+/).length;
+      wordCountExcerpt.set(form.data.excerpt.trim().split(/\s+/).length);
     }
   }
 
@@ -85,12 +76,12 @@
     form.errorMessage = "";
     form.errors = { ...initialFormErrors };
 
-    if (wordCountTitle > 15) {
+    if ($wordCountTitle > 15) {
       form.errors.title = "Title cannot exceed 15 words";
       form.isSubmitting = false;
       return;
     }
-    if (wordCountExcerpt > 60) {
+    if ($wordCountExcerpt > 60) {
       form.errors.excerpt = "Excerpt cannot exceed 60 words";
       form.isSubmitting = false;
       return;
@@ -147,10 +138,12 @@
 
 <Smoother>
   <section>
-    <h1 class="font-bold text-center font-xl padding-y">Blog Editor</h1>
+    <h1 class="font-bold text-center font-xl padding-y">Editor</h1>
     <form class="padding-y container"
-          on:submit|preventDefault={handleSubmit}>
-      <label class="font-lg font-semi-bold" for="title">Title</label>
+          method="post"
+          on:submit|preventDefault={handleSubmit}
+    >
+      <label class="font-sm font-semi-bold" for="title">TITLE</label>
       <textarea bind:value={form.data.title}
                 id="title"
                 on:input={ event=> {
@@ -159,13 +152,13 @@
                       }}
                 placeholder="Write your title..."
       />
-      <p class="font-xs flex-end">{wordCountTitle}/15 Words</p>
+      <p class="font-xs flex-end">{$wordCountTitle}/15 Words</p>
       {#if form.errors.title}
         <p class="font-xs errormessage">{form.errors.title}</p>
       {/if}
 
-      <label class="padding-top font-lg font-semi-bold"
-             for="excerpt">Excerpt</label>
+      <label class="padding-top font-sm font-semi-bold"
+             for="excerpt">EXCERPT</label>
       <textarea bind:value={form.data.excerpt}
                 id="excerpt"
                 on:input={ event=> {
@@ -174,20 +167,21 @@
                       }}
                 placeholder="Write your excerpt..."
       />
-      <p class="font-xs flex-end">{wordCountExcerpt}/60 Words</p>
+      <p class="font-xs flex-end">{$wordCountExcerpt}/60 Words</p>
       {#if form.errors.excerpt}
         <p class="font-xs errormessage">{form.errors.excerpt}</p>
       {/if}
 
-      <label class="padding-top font-lg font-semi-bold"
-             for="editorBody">Body</label>
-      <QuillEditor on:input={handleInputChangeError} />
+      <label class="padding-top font-sm font-semi-bold"
+             for="editorBody">BODY</label>
+      <QuillEditorForm on:input={handleInputChangeError} />
       {#if form.errors.body}
         <p class="font-xs errormessage">{form.errors.body}</p>
       {/if}
 
-      <label class="padding-top font-lg font-semi-bold" for="token">Bearer
-        Token</label>
+      <label class="padding-top font-sm font-semi-bold" for="token">
+        TOKEN
+      </label>
       <div class="password-field flex-row">
         {#if showPassword}
           <input type="text" autocomplete="off"
@@ -307,10 +301,16 @@
 		gap: 1rem;
 		}
 
-	input, textarea {
+	input,
+	textarea {
 		padding: 10px;
 		border: 1px solid #ccc;
 		border-radius: 4px;
+		}
+
+	input {
+		height: 30px;
+		margin-right: 2px;
 		}
 
 	textarea {
@@ -318,6 +318,7 @@
 		resize: vertical;
 		}
 
+	input,
 	textarea:focus {
 		outline: 1px solid #5e5d5d;
 		}
