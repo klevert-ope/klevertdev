@@ -3,6 +3,10 @@
   background-color: #fcfcfc;
 }
 
+.content {
+  display: contents;
+}
+
 .inter-primary {
   font-family: "Inter", sans-serif;
   font-style: normal;

@@ -1,10 +1,11 @@
 <script>
-    import { page } from "$app/stores";
+  import { page } from "$app/stores";
 </script>
 
 <nav class="font-md font-medium padding-top padding-bottom container">
   <a aria-current={$page.url.pathname === '/'}
-     href="/">
+     href="/"
+  >
     /həʊm/
   </a>
 </nav>

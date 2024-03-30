@@ -15,8 +15,10 @@
   import Nav from "$lib/nav.svelte";
   import MailButton from "$lib/mailbutton.svelte";
 
+
   const postsApiUrl = import.meta.env.VITE_POSTSAPI_URL;
   const bearerAuthToken = import.meta.env.VITE_BEARER_TOKEN;
+
   const numberPosts = 10;
 
   interface Post {
@@ -57,7 +59,6 @@
 
   onMount(fetchPosts);
 </script>
-
 
 <Smoother>
   <Nav />
@@ -101,7 +102,7 @@
               <button class="button">
                 <a href={`/post/?id=${post.id}`}
                    class="font-xs"
-                   aria-current={$page.url.pathname === '/post/?id=${post.id}'}
+                   aria-current={$page.params.id === post.id}
                 >
                   Read More
                 </a>

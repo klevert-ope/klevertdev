@@ -14,15 +14,11 @@
   </script>
   <script
     src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.3/dist/quill.js"></script>
-  <link
-    href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.3/dist/quill.snow.css"
-    rel="stylesheet"
-  />
 </svelte:head>
 
 <script lang="ts">
   import { onMount } from "svelte";
-  import { error, isLoading, post } from "./store";
+  import { error, isLoading, post } from "../post/store";
 
   import Smoother from "$lib/smoothscroll.svelte";
   import Footer from "$lib/footer.svelte";
@@ -100,6 +96,7 @@
   </section>
   <Footer />
 </Smoother>
+
 
 <style>
 	.h-large {

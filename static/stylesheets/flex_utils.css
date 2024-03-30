@@ -1,37 +1,38 @@
-// _flex-utils.scss
-
 .flex {
   display: flex;
 }
 
 .flex-row {
-  @extend .flex;
+  display: flex;
   flex-direction: row;
 }
 
 .flex-col {
-  @extend .flex;
+  display: flex;
   flex-direction: column;
 }
 
 .flex-end {
-  @extend .flex;
+  display: flex;
   justify-content: flex-end;
 }
 
 .flex-row-between {
-  @extend .flex-row;
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
 
 .flex-row-center {
-  @extend .flex-row;
+  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
 .flex-col-center {
-  @extend .flex-col;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }

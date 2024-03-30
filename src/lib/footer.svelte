@@ -1,12 +1,7 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-
-    let currentYear: number;
-
-  onMount(() => {
-    const date = new Date();
-    currentYear = date.getFullYear();
-  });
+  let currentYear: number;
+  const date = new Date();
+  currentYear = date.getFullYear();
 </script>
 
 <section class="padding-y container">

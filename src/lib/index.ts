@@ -5,5 +5,4 @@ import "./smoothscroll.svelte";
 import "./footer.svelte";
 import "./nav.svelte";
 import "./mailbutton.svelte";
-import "./toastsuccess.svelte";
-import "./toasterror.svelte";
+import "./toastform.svelte";

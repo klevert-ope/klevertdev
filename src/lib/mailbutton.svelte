@@ -1,7 +1,5 @@
 <script lang="ts">
-  // @ts-ignore
-  import { gsap } from "gsap/dist/gsap";
-  // @ts-ignore
+  import { gsap } from "gsap";
   import { Observer } from "gsap/dist/Observer";
   import { onMount } from "svelte";
 

@@ -1,31 +1,30 @@
 import { sveltekit } from "@sveltejs/kit/vite";
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 // @ts-ignore
 import VitePluginSass from "vite-plugin-sass";
 
-export default defineConfig({
-  plugins: [sveltekit(), VitePluginSass()],
-  resolve: {
-    alias: {
-      stylesheets: "./stylesheets",
+export default ({ mode }: { mode: string }) => {
+  // Extends 'process.env.*'
+  // with VITE_*-variables from '.env.(mode=production|development)'
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+  return defineConfig({
+    plugins: [sveltekit(), VitePluginSass()],
+    optimizeDeps: {
+      include: [
+        "gsap",
+        "gsap/dist/ScrollSmoother",
+        "gsap/dist/ScrollTrigger",
+        "gsap/dist/Observer",
+      ],
     },
-  },
-  optimizeDeps: {
-    include: [
-      "gsap/dist/gsap",
-      "gsap/dist/ScrollSmoother",
-      "gsap/dist/ScrollTrigger",
-      "gsap/dist/Observer",
-    ],
-  },
-  preview: {
-    port: 5173,
-    strictPort: true,
-  },
-  server: {
-    port: 5173,
-    strictPort: true,
-    host: true,
-    origin: "http://0.0.0.0:5173",
-  },
-});
+    server: {
+      fs: {
+        allow: ["static"],
+      },
+      port: 3000,
+      strictPort: true,
+      host: true,
+      origin: "http://0.0.0.0:3000",
+    },
+  });
+};
