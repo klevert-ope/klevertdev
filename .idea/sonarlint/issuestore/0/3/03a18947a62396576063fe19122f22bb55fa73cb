@@ -1,0 +1,106 @@
+
+Ijavascript:S1186"(Unexpected empty function 'afterUpdate'.(Š³º®şÿÿÿÿ
+ujavascript:S3776"TRefactor this function to reduce its Cognitive Complexity from 19 to the 15 allowed.(ïØûçøÿÿÿÿ
+;javascript:S1199""Nested block is redundant.(ÒÌâ–øÿÿÿÿ
+;javascript:S1199:"Nested block is redundant.(ÒÌâ–øÿÿÿÿ
+Xjavascript:S4624="7Refactor this code to not use nested template literals.(³äÓşÿÿÿÿ
+Xjavascript:S4624U"7Refactor this code to not use nested template literals.(ş§Ó˜øÿÿÿÿ
+Sjavascript:S4624_"7Refactor this code to not use nested template literals.( š‚è
+qjavascript:S5843¦"TSimplify this regular expression to reduce its complexity from 56 to the 20 allowed.(ºî×ò
+qjavascript:S3776¶"TRefactor this function to reduce its Cognitive Complexity from 27 to the 15 allowed.(…Ï‘Õ
+Jjavascript:S6836²"-Unexpected lexical declaration in case block.(ş Ó×
+Jjavascript:S6836µ"-Unexpected lexical declaration in case block.(¶î¬Ì
+Ijavascript:S6836½"-Unexpected lexical declaration in case block.(£ä²|
+Jjavascript:S6836À"-Unexpected lexical declaration in case block.(àô±¯
+vjavascript:S3776ò"TRefactor this function to reduce its Cognitive Complexity from 63 to the 15 allowed.(‡»âøÿÿÿÿ
+Ojavascript:S6836¡"-Unexpected lexical declaration in case block.(’„ñÃüÿÿÿÿ
+Kjavascript:S3504‘")Unexpected var, use let or const instead.(î“‹Õûÿÿÿÿ
+Kjavascript:S3504š")Unexpected var, use let or const instead.(³´äÀûÿÿÿÿ
+Fjavascript:S3504­")Unexpected var, use let or const instead.(ˆ¾Ÿú
+Kjavascript:S3504·")Unexpected var, use let or const instead.(€ÿÏ¶ÿÿÿÿÿ
+@javascript:S6324·"Remove this control character.(€ÿÏ¶ÿÿÿÿÿ
+Fjavascript:S3504Ê")Unexpected var, use let or const instead.(Äî‹
+Fjavascript:S3504Ë")Unexpected var, use let or const instead.(Ø±ë
+Fjavascript:S3504Ì")Unexpected var, use let or const instead.(á«
+Kjavascript:S3504Î")Unexpected var, use let or const instead.(´–Àáûÿÿÿÿ
+Fjavascript:S3504Ğ")Unexpected var, use let or const instead.(“¹üÆ
+Kjavascript:S3504×")Unexpected var, use let or const instead.(¨şˆ²øÿÿÿÿ
+Kjavascript:S3504á")Unexpected var, use let or const instead.(½ˆ•²ÿÿÿÿÿ
+Kjavascript:S3504å")Unexpected var, use let or const instead.(™¹Òœÿÿÿÿÿ
+vjavascript:S3776…"TRefactor this function to reduce its Cognitive Complexity from 32 to the 15 allowed.(íà±úÿÿÿÿ
+Fjavascript:S3504†")Unexpected var, use let or const instead.(Ø±ë
+Fjavascript:S3504‡")Unexpected var, use let or const instead.(¯²™¶
+Fjavascript:S3504‘")Unexpected var, use let or const instead.(‘Ñ€ó
+Kjavascript:S3504—")Unexpected var, use let or const instead.( ÂŞĞûÿÿÿÿ
+Kjavascript:S3504š")Unexpected var, use let or const instead.(ßÀËÂùÿÿÿÿ
+Fjavascript:S3504´")Unexpected var, use let or const instead.(±Éã°
+Kjavascript:S3504Ê")Unexpected var, use let or const instead.(¥ƒı˜üÿÿÿÿ
+Fjavascript:S3504Ş")Unexpected var, use let or const instead.(ĞŒÌ“
+Fjavascript:S3504¬")Unexpected var, use let or const instead.(Ù›â˜
+Fjavascript:S3504®")Unexpected var, use let or const instead.(¿ÛÛå
+Kjavascript:S3504°")Unexpected var, use let or const instead.(à¿‹Ëıÿÿÿÿ
+Fjavascript:S3504¶")Unexpected var, use let or const instead.(Ôš‚¹
+Kjavascript:S3504Á")Unexpected var, use let or const instead.(ü«âÇøÿÿÿÿ
+Fjavascript:S3504Ã")Unexpected var, use let or const instead.(¢ªì¿
+Ejavascript:S3504Ä")Unexpected var, use let or const instead.(íÃœ
+Kjavascript:S3504Å")Unexpected var, use let or const instead.(Ÿä»•ùÿÿÿÿ
+Fjavascript:S3504Æ")Unexpected var, use let or const instead.(°ºé‚
+]javascript:S6661É"AUse an object spread instead of `Object.assign` eg: `{ ...foo }`.(İ°ë
+Kjavascript:S3504×")Unexpected var, use let or const instead.(À¾äıÿÿÿÿ
+Fjavascript:S3504İ")Unexpected var, use let or const instead.(²‡ºØ
+Kjavascript:S3504Ş")Unexpected var, use let or const instead.(ì‹ÆËüÿÿÿÿ
+Kjavascript:S3504ß")Unexpected var, use let or const instead.(”£¶İÿÿÿÿÿ
+Kjavascript:S3504õ")Unexpected var, use let or const instead.(áø±Ğüÿÿÿÿ
+Kjavascript:S3504ö")Unexpected var, use let or const instead.(®¬«íıÿÿÿÿ
+Fjavascript:S3504÷")Unexpected var, use let or const instead.(ÁéÌ¥
+qjavascript:S3776‚	"TRefactor this function to reduce its Cognitive Complexity from 18 to the 15 allowed.(©ÈÉÅ
+]javascript:S6661„	"AUse an object spread instead of `Object.assign` eg: `{ ...foo }`.(İ°ë
+Fjavascript:S3504™	")Unexpected var, use let or const instead.(›‚ÛÂ
+]javascript:S6661­	"AUse an object spread instead of `Object.assign` eg: `{ ...foo }`.(İ°ë
+Kjavascript:S3504µ	")Unexpected var, use let or const instead.(ÄÎ‚ûÿÿÿÿ
+Fjavascript:S3504·	")Unexpected var, use let or const instead.(²»íª
+qjavascript:S3776É	"TRefactor this function to reduce its Cognitive Complexity from 23 to the 15 allowed.(œÁ
+Fjavascript:S3504Ñ	")Unexpected var, use let or const instead.(¶ ‡
+Fjavascript:S3504Ò	")Unexpected var, use let or const instead.(³Ú¨·
+Kjavascript:S3504Ó	")Unexpected var, use let or const instead.(şÙ•âúÿÿÿÿ
+Fjavascript:S3504Ô	")Unexpected var, use let or const instead.(ø³«¢
+Ejavascript:S3504Õ	")Unexpected var, use let or const instead.(²³â2
+Fjavascript:S3504Ö	")Unexpected var, use let or const instead.(Ş–šÈ
+Kjavascript:S3504×	")Unexpected var, use let or const instead.(ÍÛŒıÿÿÿÿ
+Kjavascript:S3504™
+")Unexpected var, use let or const instead.(İâêÃşÿÿÿÿ
+Kjavascript:S2094á
+")Unexpected class with only a constructor.(ÿæÂŞùÿÿÿÿ
+Fjavascript:S2094÷
+")Unexpected class with only a constructor.(øœ–ı
+vjavascript:S3776„"TRefactor this function to reduce its Cognitive Complexity from 18 to the 15 allowed.(Ü×™ìşÿÿÿÿ
+ajavascript:S2589é"?This always evaluates to falsy. Consider refactoring this code.(òıÀıÿÿÿÿ
+ajavascript:S2589¸"?This always evaluates to falsy. Consider refactoring this code.(òıÀıÿÿÿÿ
+`javascript:S1848¼"CEither remove this useless object instantiation of "URL" or use it.(¾º…°
+vjavascript:S3776"TRefactor this function to reduce its Cognitive Complexity from 25 to the 15 allowed.(§‹‰—úÿÿÿÿ
+qjavascript:S3776´"TRefactor this function to reduce its Cognitive Complexity from 21 to the 15 allowed.(íÌİ×
+Cjavascript:S6535ä"!Unnecessary escape character: \/.(ÇÒ£ÿùÿÿÿÿ
+kjavascript:S1994 "IThis loop's stop condition tests "i" but the incrementer updates "prime".(Ü°Šÿùÿÿÿÿ
+qjavascript:S3776¶"TRefactor this function to reduce its Cognitive Complexity from 29 to the 15 allowed.(Á‰Êô
+vjavascript:S3776Ù"TRefactor this function to reduce its Cognitive Complexity from 19 to the 15 allowed.(ï‹‰üÿÿÿÿ
+gjavascript:S1764¥"JCorrect one of the identical sub-expressions on both sides of operator ">"(„æ¹Ğ
+gjavascript:S1764¦"JCorrect one of the identical sub-expressions on both sides of operator ">"(Óı€½
+rjavascript:S3776ù"URefactor this function to reduce its Cognitive Complexity from 107 to the 15 allowed.(¨à€¯
+<javascript:S1199¾"Nested block is redundant.(ÒÌâ–øÿÿÿÿ
+ajavascript:S6660í"?'If' statement should not be the only statement in 'else' block(ŒÒÁ´üÿÿÿÿ
+Yjavascript:S4624İ"7Refactor this code to not use nested template literals.(Ù××®ûÿÿÿÿ
+Cjavascript:S6535ş"!Unnecessary escape character: \/.(¢¾ıñÿÿÿÿÿ
+Cjavascript:S6535ç"!Unnecessary escape character: \/.(ß¢ß—üÿÿÿÿ
+Tjavascript:S4624ô"7Refactor this code to not use nested template literals.(ğøˆ•
+Ujavascript:S1121ç"8Extract the assignment of "result" from this expression.(şîı½
+Tjavascript:S4624£"7Refactor this code to not use nested template literals.(á€û‘
+vjavascript:S3776º"TRefactor this function to reduce its Cognitive Complexity from 61 to the 15 allowed.(ìú¡ùÿÿÿÿ
+Qjavascript:S1135¾"4Complete the task associated to this "TODO" comment.(Õ¢‰
+@javascript:S2310Ô"Remove this assignment of "i".(ÛÆçıÿÿÿÿ
+qjavascript:S3776£"TRefactor this function to reduce its Cognitive Complexity from 24 to the 15 allowed.(€¿¡ë
+`javascript:S6644×">Unnecessary use of boolean literals in conditional expression.(»¾İüÿÿÿÿ
+vjavascript:S3776Ù"TRefactor this function to reduce its Cognitive Complexity from 46 to the 15 allowed.( ùÿÿÿÿÿ
+wjavascript:S3776Ô"URefactor this function to reduce its Cognitive Complexity from 110 to the 15 allowed.(şéÖşÿÿÿÿ
+`javascript:S3358Ã"DExtract this nested ternary operation into an independent statement.(ºÒ†
+vjavascript:S3776É"TRefactor this function to reduce its Cognitive Complexity from 40 to the 15 allowed.(™ûÊ¿şÿÿÿÿ
+<javascript:S1199ù "Nested block is redundant.(ÒÌâ–øÿÿÿÿ

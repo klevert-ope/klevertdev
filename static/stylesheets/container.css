@@ -1,0 +1,80 @@
+/* Base container */
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+
+  /* Responsive breakpoints */
+  @media (min-width: 540px) {
+    width: 540px;
+  }
+  @media (min-width: 720px) {
+    width: 720px;
+  }
+  @media (min-width: 960px) {
+    width: 960px;
+  }
+  @media (min-width: 1140px) {
+    width: 1140px;
+  }
+}
+
+/* Fluid container */
+.container-fluid {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Additional helper classes */
+.container-sm {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+
+  @media (min-width: 540px) {
+    width: 540px;
+  }
+}
+
+.container-md {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+
+  @media (min-width: 720px) {
+    width: 720px;
+  }
+}
+
+.container-lg {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+
+  @media (min-width: 960px) {
+    width: 960px;
+  }
+}
+
+.container-xl {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+
+  @media (min-width: 1140px) {
+    width: 1140px;
+  }
+}
