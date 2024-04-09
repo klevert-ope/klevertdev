@@ -9,70 +9,32 @@
     <meta property="twitter:title" content={$post.title} />
     <meta property="twitter:description" content={$post.excerpt} />
   {/if}
-  <script
-    src="https://cdn.jsdelivr.net/npm/dompurify@3.0.11/dist/purify.min.js">
-  </script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.3/dist/quill.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.4/dist/quill.snow.css"
+        rel="stylesheet" />
 </svelte:head>
 
 <script lang="ts">
   import { onMount } from "svelte";
-  import { error, isLoading, post } from "../post/store";
-
+  import type { PostData } from "./store";
+  import { error, isLoading, post } from "./store";
   import Smoother from "$lib/smoothscroll.svelte";
   import Footer from "$lib/footer.svelte";
   import Nav from "$lib/nav.svelte";
+  import { convertDeltaToHtml } from "./delta";
 
-  const postsApiUrl = import.meta.env.VITE_POSTSAPI_URL;
-  const bearerAuthToken = import.meta.env.VITE_BEARER_TOKEN;
+  export let data: PostData;
+  let bodyHtml = "";
 
-  function convertDeltaToHtml(delta: any): string {
-    // @ts-ignore
-    const quill = new Quill(document.createElement("div"));
-    quill.setContents(delta);
-    const rawHtml = quill.root.innerHTML;
-    // @ts-ignore
-    return DOMPurify.sanitize(rawHtml);
-  }
-
-  async function fetchPost() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id");
-
-    if (!id) {
-      error.set("Missing post ID in the URL.");
-      return;
+  onMount(async () => {
+    if (data.success === true && data.post !== null) {
+      post.set(data.post);
+      bodyHtml = await convertDeltaToHtml(JSON.parse(data.post.body));
+    } else if (data.error !== undefined) {
+      error.set(data.error);
     }
+    isLoading.set(false);
+  });
 
-    try {
-      const response = await fetch(`${postsApiUrl}/posts?id=${id}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${bearerAuthToken}`
-        }
-      });
-
-      if (!response.ok) {
-        new Error(`Error fetching post: ${response.statusText}`);
-      }
-
-      const postData = await response.json();
-      const parsedDelta = JSON.parse(postData.body);
-      post.set({
-        id: postData.id,
-        title: postData.title,
-        excerpt: postData.excerpt,
-        body: convertDeltaToHtml(parsedDelta)
-      });
-    } catch (err) {
-      error.set("Failed to load post. Please try again later.");
-    } finally {
-      isLoading.set(false);
-    }
-  }
-
-  onMount(fetchPost);
 </script>
 
 <Smoother>
@@ -84,13 +46,13 @@
         <div class="loading-skeleton h-large margin-top"></div>
       </div>
     {:else if $error}
-      <p>Error: {$error}</p>
+      <p class="font-xs errormessage">Error: {$error}</p>
     {:else if $post}
-      <div class="large-max-width">
+      <div class="large-max-width line-h-1">
         <h1
           class="padding-y green-text font-lg font-semi-bold">{$post.title}</h1>
         <div
-          class="padding-bottom font-sm line-h-small">{@html $post.body}</div>
+          class="padding-bottom font-sm line-h-small">{@html bodyHtml}</div>
       </div>
     {/if}
   </section>
@@ -99,6 +61,22 @@
 
 
 <style>
+	.errormessage {
+		color: red;
+		}
+
+	.green-text {
+		color: rgb(0, 175, 80);
+		}
+
+	.line-h-1 {
+		line-height: 1.25;
+		}
+
+	.line-h-small {
+		line-height: 20px;
+		}
+
 	.h-large {
 		height: 100vh;
 		}
@@ -130,5 +108,64 @@
 				rgb(236, 236, 236) 80px
 		);
 		background-size: 250px;
+		}
+
+	.font-xs {
+		font-size: calc(clamp(0.65rem, 0.6062rem + 0.1798vw, 0.75rem));
+		}
+
+	.font-sm {
+		font-size: calc(clamp(0.8rem, 0.7124rem + 0.3596vw, 1rem));
+		}
+
+	.font-lg {
+		font-size: calc(clamp(1.4rem, 1.2247rem + 0.7191vw, 1.8rem));
+		}
+
+	.font-semi-bold {
+		font-weight: 600;
+		}
+
+	.margin-top {
+		margin-top: 20px;
+		}
+
+	.container {
+		width: 100%;
+		margin-right: auto;
+		margin-left: auto;
+		padding-right: 15px;
+		padding-left: 15px;
+
+		/* Responsive breakpoints */
+		@media (min-width: 540px) {
+			width: 540px;
+			}
+		@media (min-width: 720px) {
+			width: 720px;
+			}
+		@media (min-width: 960px) {
+			width: 960px;
+			}
+		@media (min-width: 1140px) {
+			width: 1140px;
+			}
+		}
+
+	.padding-bottom {
+		padding-bottom: 20px;
+		}
+
+	.padding-y {
+		padding-top: 20px;
+		padding-bottom: 20px;
+		}
+
+	.large-max-width {
+		max-width: 600px;
+		}
+
+	.h-svh {
+		min-height: 100svh;
 		}
 </style>

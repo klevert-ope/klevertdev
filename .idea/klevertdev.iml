@@ -7,6 +7,10 @@
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/.svelte-kit" />
+      <excludeFolder url="file://$MODULE_DIR$/build" />
+      <excludePattern pattern="docker-compose.yml" />
+      <excludePattern pattern=" build.sh" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -16,9 +20,9 @@
     <orderEntry type="library" name="@highlightjs/cdn-assets" level="application" />
     <orderEntry type="library" name="dompurify" level="application" />
     <orderEntry type="library" name="quill" level="application" />
-    <orderEntry type="library" name="highlight.js" level="application" />
+    <orderEntry type="library" name="reset-css" level="application" />
     <orderEntry type="library" name="quill" level="application" />
-    <orderEntry type="library" name="@highlightjs/cdn-assets" level="application" />
+    <orderEntry type="library" name="dompurify" level="application" />
   </component>
   <component name="SonarLintModuleSettings">
     <option name="uniqueId" value="3424fde7-be69-40b0-928b-74afecaaf079" />

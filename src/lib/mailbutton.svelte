@@ -1,13 +1,18 @@
 <script lang="ts">
   import { gsap } from "gsap";
   import { Observer } from "gsap/dist/Observer";
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
+  import IoIosSend from "svelte-icons/io/IoIosSend.svelte";
+
+  let mailtoButton: HTMLElement | null = null;
+  let observer: Observer | null = null;
+  let tl: gsap.core.Timeline | null = null;
 
   onMount(() => {
     gsap.registerPlugin(Observer);
-    const mailtoButton = document.getElementById("mailto-button");
+    mailtoButton = document.getElementById("mailto-button");
 
-    const tl = gsap.timeline({ paused: true });
+    tl = gsap.timeline({ paused: true });
 
     tl.fromTo(
       mailtoButton,
@@ -20,36 +25,56 @@
       { opacity: 1, bottom: 10, duration: 0.5, ease: "power2.inOut" }
     );
 
-    Observer.create({
+    observer = Observer.create({
       target: window,
       type: "wheel,touch,scroll",
       onUp: () => {
-        tl.play();
+        tl?.play();
       },
       onDown: () => {
-        tl.reverse();
+        tl?.reverse();
       }
     });
   });
 
+  onDestroy(() => {
+    if (observer) {
+      observer.kill();
+    }
+    if (tl) {
+      tl.kill();
+    }
+  });
 </script>
 
-<button class="mailto-button unset" id="mailto-button" type="button">
-  <a class="unset" href="mailto:klevertope@gmail.com">
+<button class="mailto-button" id="mailto-button" type="button">
+  <a href="mailto:klevertope@gmail.com">
     <div class="flex-row">
-      <p class="font-xs font-medium amber-text padding-right-small">
+      <p class="font-xs font-medium padding-right-small">
         Reach Out
       </p>
-      <svg fill="white" height="12"
-           viewBox="0 0 512 512" width="12"
-           xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480V396.4c0-4 1.5-7.8 4.2-10.7L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z" />
-      </svg>
+      <div class="icon">
+        <IoIosSend />
+      </div>
     </div>
   </a>
 </button>
 <style>
+	.icon {
+		width: 14px;
+		height: 14px;
+		margin-left: 2px;
+		color: white;
+		}
+
+	a {
+		all: unset;
+		}
+
+	button {
+		all: unset;
+		}
+
 	.mailto-button {
 		position: fixed;
 		z-index: 100;
@@ -65,6 +90,23 @@
 		border-style: solid black;
 		border-radius: 40px;
 		background-color: rgb(0, 175, 80);
-		box-shadow: 0 4px 30px #ccc;
+		box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+		}
+
+	.font-xs {
+		font-size: calc(clamp(0.65rem, 0.6062rem + 0.1798vw, 0.75rem));
+		}
+
+	.font-medium {
+		font-weight: 500;
+		}
+
+	.padding-right-small {
+		padding-right: 5px;
+		}
+
+	.flex-row {
+		display: flex;
+		flex-direction: row;
 		}
 </style>

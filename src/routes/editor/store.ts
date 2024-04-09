@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import { blogPostSchema } from "./postSchema";
+import { blogPostSchema } from "./blogPostSchema";
 import { z } from "zod";
 
 export const editorContent = writable("");
@@ -7,8 +7,12 @@ export const wordCountTitle = writable(0);
 export const wordCountExcerpt = writable(0);
 export const wordCountBody = writable(0);
 export const QuillEditor = writable<any>(null);
+export const successMessage = writable("");
+export const errorMessage = writable("");
+export const isSubmitting = writable(false);
+export const showPassword = writable(false);
 
-interface FormData {
+export interface FormData {
   title: string;
   excerpt: string;
   body: string;
@@ -25,13 +29,7 @@ export const initialFormErrors = {
 export const form: {
   data: FormData;
   errors: z.infer<typeof blogPostSchema>;
-  isSubmitting: boolean;
-  successMessage: string;
-  errorMessage: string;
 } = {
   data: { ...initialFormData },
   errors: { ...initialFormErrors },
-  isSubmitting: false,
-  successMessage: "",
-  errorMessage: "",
 };

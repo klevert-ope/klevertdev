@@ -2,13 +2,12 @@
   import { gsap } from "gsap";
   import { ScrollSmoother } from "gsap/dist/ScrollSmoother";
   import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-  import { onMount } from "svelte";
-
-  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+  import { onDestroy, onMount } from "svelte";
 
   export let Smoother: any = null;
 
   onMount(() => {
+    gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
     Smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
       content: "#smooth-content",
@@ -19,6 +18,12 @@
 
     ScrollTrigger.normalizeScroll(true);
   });
+
+  onDestroy(() => {
+    if (Smoother) {
+      Smoother.kill();
+    }
+  });
 </script>
 
 <div id="smooth-wrapper">
@@ -26,5 +31,3 @@
     <slot />
   </div>
 </div>
-
-

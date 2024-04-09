@@ -19,4 +19,42 @@
 	nav a:hover {
 		color: rgb(0, 175, 80);
 		}
+
+  .font-md {
+	  font-size: calc(clamp(1.1rem, 1.0124rem + 0.3596vw, 1.3rem));
+	  }
+
+  .font-medium {
+	  font-weight: 500;
+	  }
+
+  .padding-top {
+	  padding-top: 20px;
+	  }
+
+  .padding-bottom {
+	  padding-bottom: 20px;
+	  }
+
+  .container {
+	  width: 100%;
+	  margin-right: auto;
+	  margin-left: auto;
+	  padding-right: 15px;
+	  padding-left: 15px;
+
+	  /* Responsive breakpoints */
+	  @media (min-width: 540px) {
+		  width: 540px;
+		  }
+	  @media (min-width: 720px) {
+		  width: 720px;
+		  }
+	  @media (min-width: 960px) {
+		  width: 960px;
+		  }
+	  @media (min-width: 1140px) {
+		  width: 1140px;
+		  }
+	  }
 </style>

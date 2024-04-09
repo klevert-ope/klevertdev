@@ -14,42 +14,6 @@
   font-variation-settings: "slnt" 0;
 }
 
-.h-svh {
-  min-height: 100svh;
-}
-
-.uppercase {
-  text-transform: uppercase;
-}
-
-.capitalize-first-letter::first-letter {
-  text-transform: uppercase;
-}
-
-.text-black {
-  color: #000000;
-}
-
-.letter-space-xs {
-  letter-spacing: 4px;
-}
-
-.hide {
-  display: none;
-}
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.green-text {
-  color: rgb(0, 175, 80);
-}
-
-.unset {
-  all: unset;
-}
-
 .ql-container.ql-snow {
   min-height: 40svh;
   border: none;
@@ -60,25 +24,16 @@ p:has(img) {
   height: auto;
 }
 
-.ql-code-block {
-  padding: 8px;
-  color: rgb(0, 175, 80);
-}
-
 .ql-code-block-container {
+  overflow: auto;
+  padding: 5px;
+  white-space: -o-pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: pre-wrap;
+  color: #f3f37e;
   border-radius: 8px;
-  background-color: #141414;
-}
-
-.ql-indent-1 {
-  padding: 10px;
-}
-
-blockquote:has(span) {
-  font-style: italic;
-  padding: 10px;
-}
-
-.line-h-small {
-  line-height: 20px;
+  background-color: rgb(20, 20, 20);
+  unicode-bidi: -webkit-isolate;
+  unicode-bidi: -moz-isolate;
+  unicode-bidi: isolate;
 }

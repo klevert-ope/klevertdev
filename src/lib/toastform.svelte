@@ -1,36 +1,39 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
   import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+  import IoIosInformationCircle
+    from "svelte-icons/io/IoIosInformationCircle.svelte";
+  import IoIosCheckmarkCircle
+    from "svelte-icons/io/IoIosCheckmarkCircle.svelte";
 
   export let message = "";
   export let type = "success";
 
   let toast: HTMLElement | null = null;
-
-  const showToast = () => {
-    gsap.set(toast, { autoAlpha: 1, y: 0 });
-    setTimeout(() => {
-      gsap.to(toast, {
-        duration: 0.5,
-        autoAlpha: 0,
-        y: -50,
-        ease: "power2.out"
-      });
-    }, 3000);
-  };
-
-  const hideToast = () => {
-    gsap.set(toast, { autoAlpha: 0, y: -50 });
-  };
+  let toastTween: gsap.core.Tween | null = null;
 
   onMount(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    showToast();
+    if (toast) {
+      gsap.from(toast, {
+        duration: 0.3,
+        autoAlpha: 0,
+        y: 30,
+        ease: "power2.in"
+      });
+      toastTween = gsap.to(toast, {
+        duration: 9,
+        delay: 1,
+        autoAlpha: 0,
+        y: -30,
+        ease: "power2.out"
+      });
+    }
   });
 
   onDestroy(() => {
-    hideToast();
+    if (toastTween) {
+      toastTween.kill();
+    }
   });
 </script>
 
@@ -39,15 +42,31 @@
   class="toast"
   class:error={type === 'error'}
   class:success={type === 'success'}
-  style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%);"
 >
+  {#if type === 'success'}
+    <div class="success-icon">
+      <IoIosCheckmarkCircle />
+    </div>
+  {:else if type === 'error'}
+    <div class="error-icon">
+      <IoIosInformationCircle />
+    </div>
+  {/if}
   <p class="font-xs font-semi-bold">{message}</p>
 </div>
 
+
 <style>
 	.toast {
+	  position: fixed;
 		z-index: 9999;
+	  top: 20px;
+	  left: 50%;
+	  display: flex;
+	  align-items: center;
+	  flex-flow: row;
 		padding: 10px;
+	  transform: translateX(-50%);
 		pointer-events: none;
 		border-radius: 5px;
 		background-color: #141414;
@@ -55,10 +74,30 @@
 		}
 
 	.error {
-		color: red;
+	  color: #f63636;
 		}
 
 	.success {
-		color: green;
+	  color: #b1ee81;
+	  }
+
+  .error-icon {
+	  width: 14px;
+	  height: 14px;
+	  margin-right: 2px;
+	  }
+
+  .success-icon {
+	  width: 14px;
+	  height: 14px;
+	  margin-right: 2px;
+	  }
+
+  .font-xs {
+	  font-size: calc(clamp(0.65rem, 0.6062rem + 0.1798vw, 0.75rem));
+	  }
+
+  .font-semi-bold {
+	  font-weight: 600;
 		}
 </style>

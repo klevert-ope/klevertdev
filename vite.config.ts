@@ -1,30 +1,25 @@
 import { sveltekit } from "@sveltejs/kit/vite";
-import { defineConfig, loadEnv } from "vite";
-// @ts-ignore
-import VitePluginSass from "vite-plugin-sass";
+import { defineConfig } from "vite";
 
-export default ({ mode }: { mode: string }) => {
-  // Extends 'process.env.*'
-  // with VITE_*-variables from '.env.(mode=production|development)'
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
-  return defineConfig({
-    plugins: [sveltekit(), VitePluginSass()],
-    optimizeDeps: {
-      include: [
-        "gsap",
-        "gsap/dist/ScrollSmoother",
-        "gsap/dist/ScrollTrigger",
-        "gsap/dist/Observer",
-      ],
+export default defineConfig({
+  plugins: [sveltekit()],
+  optimizeDeps: {
+    include: [
+      "gsap",
+      "gsap/dist/ScrollSmoother",
+      "gsap/dist/ScrollTrigger",
+      "gsap/dist/Observer",
+      "quill",
+      "dompurify",
+    ],
+  },
+  server: {
+    fs: {
+      allow: ["static"],
     },
-    server: {
-      fs: {
-        allow: ["static"],
-      },
-      port: 3000,
-      strictPort: true,
-      host: true,
-      origin: "http://0.0.0.0:3000",
-    },
-  });
-};
+    port: 3000,
+    strictPort: true,
+    host: true,
+    origin: "http://0.0.0.0:3000",
+  },
+});

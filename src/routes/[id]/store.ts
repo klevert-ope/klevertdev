@@ -4,17 +4,16 @@ export interface Post {
   id: string;
   title: string;
   excerpt: string;
-  created_at: string;
+  body: string;
 }
 
-export interface PostsData {
+export interface PostData {
   success: boolean;
   message: string;
-  posts: Post[] | null;
+  post: Post | null;
   error?: string;
 }
 
-
-export const posts = writable<Post[]>([]);
+export const post = writable<Post | null>(null);
 export const error = writable<string | null>(null);
 export const isLoading = writable(true);

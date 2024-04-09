@@ -1,5 +1,2 @@
 .idea
 node_modules
-# Exclude .env files
-.env
-.env.*
