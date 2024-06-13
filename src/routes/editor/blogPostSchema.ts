@@ -20,6 +20,6 @@ const maxWordCount = (max: number, message: string) =>
 export const blogPostSchema = z.object({
   title: maxWordCount(15, "Title cannot exceed 15 words"),
   excerpt: maxWordCount(60, "Excerpt cannot exceed 60 words"),
-  body: maxWordCount(1500, "Body cannot exceed 1500 words"),
+  body: maxWordCount(10000, "Body cannot exceed 10000 words"),
   token: z.string().min(1, "Token cannot be empty"),
 });

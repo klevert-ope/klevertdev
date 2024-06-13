@@ -1,17 +1,21 @@
-:root {
-  color: #000000;
-  background-color: #fcfcfc;
-}
+:global([data-theme="light"]) {
+  color: #1D1D1D;
+  background-color: #f4f0e6;
+  --orange-blue: #ff3b00;
+  --white-black-code: #1D1D1D;
+  --yellow-blue-code: #fcfcfc;
+  }
+
+:global([data-theme="dark"]) {
+  color: #FCFCFD;
+  background-color: #1D1D1D;
+  --orange-blue: #ff3b00;
+  --white-black-code: #FFF4ED;
+  --yellow-blue-code: #1D1D1D;
+  }
 
 .content {
   display: contents;
-}
-
-.inter-primary {
-  font-family: "Inter", sans-serif;
-  font-style: normal;
-  font-optical-sizing: auto;
-  font-variation-settings: "slnt" 0;
 }
 
 .ql-container.ql-snow {
@@ -24,16 +28,44 @@ p:has(img) {
   height: auto;
 }
 
+ol li {
+  margin-bottom: 5px;
+  margin-left: 15px;
+  padding: 5px;
+  list-style-type: lower-roman;
+  }
+
 .ql-code-block-container {
+  font-family: 'Andale Mono', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
   overflow: auto;
   padding: 5px;
+  transition: color 0.9s, background-color 0.9s, transform 0.9s;
   white-space: -o-pre-wrap;
   white-space: -moz-pre-wrap;
   white-space: pre-wrap;
-  color: #f3f37e;
+  color: var(--yellow-blue-code);
   border-radius: 8px;
-  background-color: rgb(20, 20, 20);
+  background-color: var(--white-black-code);
   unicode-bidi: -webkit-isolate;
   unicode-bidi: -moz-isolate;
   unicode-bidi: isolate;
 }
+
+.ql-toolbar {
+  background-color: white;
+  }
+
+a {
+  color: var(--orange-blue);
+  }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--orange-blue);
+  }

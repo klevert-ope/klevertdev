@@ -9,7 +9,7 @@
     <meta property="twitter:title" content={$post.title} />
     <meta property="twitter:description" content={$post.excerpt} />
   {/if}
-  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.4/dist/quill.snow.css"
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css"
         rel="stylesheet" />
 </svelte:head>
 
@@ -17,7 +17,6 @@
   import { onMount } from "svelte";
   import type { PostData } from "./store";
   import { error, isLoading, post } from "./store";
-  import Smoother from "$lib/smoothscroll.svelte";
   import Footer from "$lib/footer.svelte";
   import Nav from "$lib/nav.svelte";
   import { convertDeltaToHtml } from "./delta";
@@ -34,10 +33,9 @@
     }
     isLoading.set(false);
   });
-
 </script>
 
-<Smoother>
+<section>
   <Nav />
   <section class="container h-svh">
     {#if $isLoading}
@@ -48,29 +46,29 @@
     {:else if $error}
       <p class="font-xs errormessage">Error: {$error}</p>
     {:else if $post}
-      <div class="large-max-width line-h-1">
+      <div class="large-max-width">
         <h1
-          class="padding-y green-text font-lg font-semi-bold">{$post.title}</h1>
+          class="padding-y yellow-blue-text font-lg font-semi-bold opera-font">{$post.title}</h1>
         <div
-          class="padding-bottom font-sm line-h-small">{@html bodyHtml}</div>
+          class="padding-bottom font-sm line-h-small post-body">{@html bodyHtml}</div>
       </div>
     {/if}
   </section>
   <Footer />
-</Smoother>
+</section>
 
 
 <style>
+    .opera-font {
+	  font-family: 'Opera', sans-serif;
+	  }
+
 	.errormessage {
-		color: red;
+	  color: oklch(0.628 0.258 29.234);
 		}
 
-	.green-text {
-		color: rgb(0, 175, 80);
-		}
-
-	.line-h-1 {
-		line-height: 1.25;
+  .yellow-blue-text {
+	  color: var(--orange-blue);
 		}
 
 	.line-h-small {
@@ -78,7 +76,7 @@
 		}
 
 	.h-large {
-		height: 100vh;
+	  height: 100svh;
 		}
 
 	.h-small {
@@ -91,21 +89,21 @@
 		border-radius: 5px;
 		background-image: -webkit-linear-gradient(
 				left,
-				rgb(236, 236, 236) 0px,
-				rgb(244, 244, 244) 40px,
-				rgb(236, 236, 236) 80px
+		oklch(0.943 0 89.876) 0px,
+		oklch(0.967 0 89.876) 40px,
+		oklch(0.943 0 89.876) 80px
 		);
 		background-image: -o-linear-gradient(
 				left,
-				rgb(236, 236, 236) 0px,
-				rgb(244, 244, 244) 40px,
-				rgb(236, 236, 236) 80px
+		oklch(0.943 0 89.876) 0px,
+		oklch(0.967 0 89.876) 40px,
+		oklch(0.943 0 89.876) 80px
 		);
 		background-image: linear-gradient(
 				90deg,
-				rgb(236, 236, 236) 0px,
-				rgb(244, 244, 244) 40px,
-				rgb(236, 236, 236) 80px
+		oklch(0.943 0 89.876) 0px,
+		oklch(0.967 0 89.876) 40px,
+		oklch(0.943 0 89.876) 80px
 		);
 		background-size: 250px;
 		}
@@ -137,8 +135,7 @@
 		padding-right: 15px;
 		padding-left: 15px;
 
-		/* Responsive breakpoints */
-		@media (min-width: 540px) {
+	  @media (min-width: 540px) {
 			width: 540px;
 			}
 		@media (min-width: 720px) {
@@ -162,7 +159,7 @@
 		}
 
 	.large-max-width {
-		max-width: 600px;
+	  max-width: 1000px;
 		}
 
 	.h-svh {

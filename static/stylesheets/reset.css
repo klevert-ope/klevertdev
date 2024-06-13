@@ -1,12 +1,12 @@
 html {
-  line-height: 1.15;
+  line-height: 1.25;
   -webkit-text-size-adjust: 100%;
 }
 
 :root {
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
@@ -31,22 +31,6 @@ hr {
   overflow: visible;
   box-sizing: content-box;
   height: 0;
-}
-
-pre {
-  font-family: Inter, sans-serif;
-  font-size: calc(clamp(0.65rem, 0.6062rem + 0.1798vw, 0.75rem));
-  overflow: auto;
-  padding: 5px;
-  white-space: -o-pre-wrap;
-  white-space: -moz-pre-wrap;
-  white-space: pre-wrap;
-  color: #f3f37e;
-  border-radius: 8px;
-  background-color: rgb(20, 20, 20);
-  unicode-bidi: -webkit-isolate;
-  unicode-bidi: -moz-isolate;
-  unicode-bidi: isolate;
 }
 
 a {
@@ -200,10 +184,6 @@ template {
   display: none;
 }
 
-li {
-  list-style-type: none;
-}
-
 img,
 picture,
 svg,
@@ -227,12 +207,12 @@ h6 {
 
 ::selection {
   color: #fcfcfc;
-  background-color: #141414;
+  background-color: #ff3b00;
 }
 
 ::-moz-selection {
   color: #fcfcfc;
-  background-color: #141414;
+  background-color: #ff3b00;
 }
 
 ::placeholder {

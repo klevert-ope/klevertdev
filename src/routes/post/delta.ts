@@ -2,8 +2,12 @@ import DOMPurify from "dompurify";
 
 let quillInstance: any = null;
 
+function isClientSide() {
+  return typeof window !== "undefined";
+}
+
 export async function convertDeltaToHtml(delta: any): Promise<string> {
-  if (typeof document === "undefined") {
+  if (!isClientSide()) {
     return "";
   }
 

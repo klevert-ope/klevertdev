@@ -23,8 +23,7 @@
     <orderEntry type="library" name="reset-css" level="application" />
     <orderEntry type="library" name="quill" level="application" />
     <orderEntry type="library" name="dompurify" level="application" />
-  </component>
-  <component name="SonarLintModuleSettings">
-    <option name="uniqueId" value="3424fde7-be69-40b0-928b-74afecaaf079" />
+    <orderEntry type="library" name="inter" level="application" />
+    <orderEntry type="library" name="highlight.js" level="application" />
   </component>
 </module>

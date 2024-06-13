@@ -110,7 +110,7 @@
 >
 
 
-  <label class="font-sm font-semi-bold" for="title">TITLE</label>
+  <label class="font-sm" for="title">TITLE</label>
   <textarea bind:value={form.data.title}
             id="title"
             name="title"
@@ -162,11 +162,11 @@
       on:click={() => $showPassword = !$showPassword}
       type="button">
       {#if $showPassword}
-        <div class="icon flex-col-center">
+        <div class="icon-password flex-col-center">
           <FaRegEye />
         </div>
       {:else}
-        <div class="icon flex-col-center">
+        <div class="icon-password flex-col-center">
           <FaRegEyeSlash />
         </div>
       {/if}
@@ -198,7 +198,7 @@
 	input,
 	textarea {
 		padding: 10px;
-		border: 1px solid #ccc;
+	  border: 1px solid var(--white-black);
 		border-radius: 4px;
 		}
 
@@ -214,35 +214,35 @@
 
 	input,
 	textarea:focus {
-		outline: 1px solid #5e5d5d;
+	  outline: 1px solid oklch(0.479 0.001 17.203);
 		}
 
 	textarea::placeholder {
 		font-size: 13px;
 		font-weight: normal;
 		font-style: italic;
-		color: #5e5d5d;
+	  color: oklch(0.479 0.001 17.203);
 		}
 
 	textarea::-webkit-input-placeholder {
 		font-size: 13px;
 		font-weight: normal;
 		font-style: italic;
-		color: #5e5d5d;
+	  color: oklch(0.479 0.001 17.203);
 		}
 
 	textarea:-moz-placeholder {
 		font-size: 13px;
 		font-weight: normal;
 		font-style: italic;
-		color: #5e5d5d;
+	  color: oklch(0.479 0.001 17.203);
 		}
 
 	textarea::-ms-input-placeholder {
 		font-size: 13px;
 		font-weight: normal;
 		font-style: italic;
-		color: #5e5d5d;
+	  color: oklch(0.479 0.001 17.203);
 		}
 
 	.nowrap {
@@ -259,10 +259,10 @@
 		padding: 10px;
 		cursor: pointer;
 		transition: color 0.3s ease;
-		color: white;
+	  color: var(--black-white);
 		border: none;
 		border-radius: 4px;
-		background-color: #141414;
+	  background-color: var(--white-black);
 		}
 
 	.submit-button:disabled {
@@ -271,18 +271,22 @@
 		}
 
 	.submit-button:hover {
-		color: #85E13A;
+	  color: var(--orange-blue);
 		}
 
-	.icon {
+  .icon-password {
 		width: 26px;
 		height: 26px;
 		margin-left: 5px;
-		color: #141414;
+	  color: var(--white-black);
 		}
 
+  label {
+	  color: var(--orange-blue);
+	  }
+
 	.errormessage {
-		color: red;
+	  color: oklch(0.628 0.258 29.234);
 		}
 
 	.font-xs {
@@ -295,10 +299,6 @@
 
 	.font-medium {
 		font-weight: 500;
-		}
-
-	.font-semi-bold {
-		font-weight: 600;
 		}
 
 	.text-center {

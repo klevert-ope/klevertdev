@@ -10,6 +10,8 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
+    "stripInternal": false,
+    "removeComments": false,
     "strict": true,
     "moduleResolution": "bundler",
     "lib": [

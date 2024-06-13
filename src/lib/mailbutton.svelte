@@ -48,19 +48,19 @@
 </script>
 
 <button class="mailto-button" id="mailto-button" type="button">
-  <a href="mailto:klevertope@gmail.com">
+  <a href="mailto:inquiries@klevertopee.app">
     <div class="flex-row">
-      <p class="font-xs font-medium padding-right-small">
+      <p class="font-xs font-semi-bold padding-right-small">
         Reach Out
       </p>
-      <div class="icon">
+      <div class="icon-send">
         <IoIosSend />
       </div>
     </div>
   </a>
 </button>
 <style>
-	.icon {
+	.icon-send {
 		width: 14px;
 		height: 14px;
 		margin-left: 2px;
@@ -87,18 +87,18 @@
 		opacity: 0;
 		color: white;
 		border-width: 2px;
-		border-style: solid black;
+	  border-style: solid oklch(0.191 0 89.876);
 		border-radius: 40px;
-		background-color: rgb(0, 175, 80);
-		box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+	  background-color: var(--orange-blue);
+	  box-shadow: 0 4px 30px oklch(0 0 0 / 0.2);
 		}
 
 	.font-xs {
 		font-size: calc(clamp(0.65rem, 0.6062rem + 0.1798vw, 0.75rem));
 		}
 
-	.font-medium {
-		font-weight: 500;
+	.font-semi-bold {
+		font-weight: 600;
 		}
 
 	.padding-right-small {

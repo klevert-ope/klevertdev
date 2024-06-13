@@ -69,16 +69,16 @@
 	  transform: translateX(-50%);
 		pointer-events: none;
 		border-radius: 5px;
-		background-color: #141414;
-		box-shadow: 0 4px 30px #ccc;
+	  background-color: oklch(0.191 0 89.876);
+	  box-shadow: 0 4px 30px oklch(0.845 0 89.876);
 		}
 
 	.error {
-	  color: #f63636;
+	  color: oklch(0.636 0.227 26.593);
 		}
 
 	.success {
-	  color: #b1ee81;
+	  color: oklch(0.884 0.153 132.71);
 	  }
 
   .error-icon {

@@ -1,22 +1,54 @@
 <svelte:head>
   <title>Klevert Opee</title>
-  <meta content="A software engineer based in kenya" name="description" />
+  <meta content="A software engineer based in Kenya" name="description" />
 </svelte:head>
 
 <script lang="ts">
   import { page } from "$app/stores";
   import type { PostsData } from "./store";
-  import { error, isLoading, posts } from "./store";
-  import { onMount } from "svelte";
+  import {
+    currentPage,
+    error,
+    isLoading,
+    paginatedPosts,
+    posts,
+    totalPages
+  } from "./store";
+  import { beforeUpdate, onMount } from "svelte";
   import timeSince from "$lib/timeago";
-  import Smoother from "$lib/smoothscroll.svelte";
   import Footer from "$lib/footer.svelte";
   import Nav from "$lib/nav.svelte";
   import MailButton from "$lib/mailbutton.svelte";
+  import IoIosArrowDropleftCircle
+    from "svelte-icons/io/IoIosArrowDropleftCircle.svelte";
+  import IoIosArrowDroprightCircle
+    from "svelte-icons/io/IoIosArrowDroprightCircle.svelte";
 
-  const numberPosts = 10;
   export let data: PostsData;
+  const numberPosts = 10;
+  const numberPostsPerPage = 10;
 
+  const getPaginatedPosts = () => {
+    if (!data || !data.posts || data.posts.length === 0) {
+      return [];
+    }
+
+    const startIndex = ($currentPage - 1) * numberPostsPerPage;
+    const endIndex = startIndex + numberPostsPerPage;
+    return data.posts.slice(startIndex, endIndex);
+  };
+
+  const handleNextPage = () => {
+    if ($currentPage < $totalPages) {
+      currentPage.set($currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if ($currentPage > 1) {
+      currentPage.set($currentPage - 1);
+    }
+  };
   onMount(() => {
     if (data.success === true && data.posts !== null) {
       posts.set(data.posts);
@@ -24,24 +56,41 @@
       error.set(data.error);
     }
     isLoading.set(false);
+
+    $paginatedPosts = getPaginatedPosts();
+    if (data.posts !== null) {
+      $totalPages = Math.ceil(data.posts.length / numberPostsPerPage);
+    }
+  });
+
+  beforeUpdate(() => {
+    $paginatedPosts = getPaginatedPosts();
+    if (data.posts !== null) {
+      $totalPages = Math.ceil(data.posts.length / numberPostsPerPage);
+    }
   });
 </script>
 
-<Smoother>
+<section>
   <Nav />
-  <section class="container line-h-1">
-    <h1 class="font-xl font-bold padding-top-small">Klevert Opee</h1>
+  <section class="container">
+    <h1 class="font-xl font-bold padding-top-md yellow-blue-text opera-font">
+      Klevert Opee
+    </h1>
     <p
-      class="font-md font-light padding-bottom xlarge-max-width padding-top-small">
-      Software Engineer based in Kenya, specializing in backend
-      development, frontend development, and DevOps strategies. I am eager
-      to collaborate and create exceptional solutions together.
+      class="font-md font-normal padding-bottom xlarge-max-width padding-top-sm">
+      They say the future is code, and I'm here to help you navigate it. Based
+      in Nairobi, Kenya, I'm a full-stack developer passionate about crafting
+      clean, efficient software from the ground up. When I'm not elbow-deep in
+      code, I share my programming journeys and tech explorations through
+      insightful blog posts.
     </p>
-    <h2 class="font-lg font-bold padding-top text-center large-max-width">
+    <h2
+      class="font-lg font-bold padding-top text-center large-max-width yellow-blue-text opera-font">
       Blog
     </h2>
     <p
-      class="font-sm font-normal padding-bottom padding-top-small large-max-width">
+      class="font-md font-normal padding-bottom padding-top-sm large-max-width">
       Here, I share my programming experiences and insights into the
       ever-evolving world of technology, from tackling programming
       challenges to exploring the latest trends. Interested? Give it a
@@ -60,41 +109,104 @@
       <p class="errormessage font-xs">Error: {$error}</p>
     {:else}
       <ul>
-        {#each $posts as post}
-          <li class="padding-y border-top large-max-width">
+        {#each $paginatedPosts as post (post.id)}
+          <li class="padding-y border-top large-max-width margin-bottom">
             <h3
-              class="font-md font-semi-bold uppercase green-text">{post.title}</h3>
-            <p class="font-sm padding-top-small capitalize-first-letter">
+              class="font-md font-semi-bold uppercase yellow-blue-text opera-font">
+              {post.title}
+            </h3>
+            <p
+              class="font-sm padding-top-sm padding-bottom-sm capitalize-first-letter">
               {post.excerpt}
             </p>
+            <p
+              class="font-xs badge border font-semi-bold">{timeSince(post.created_at)}</p>
             <div class="flex-end padding-top">
-              <button class="button">
-                <a href={`/post/?id=${post.id}`}
-                   class="font-xs"
-                   aria-current={$page.params.id === post.id}
+              <a href={`/post?id=${post.id}`}
+                 aria-current={$page.params.id === post.id}
+              >
+                <button class="button learn-more font-xs font-semi-bold"
+                        aria-label="read post"
                 >
                   Read More
-                </a>
               </button>
+              </a>
             </div>
-            <p class="font-xs">{timeSince(post.created_at)}</p>
           </li>
         {/each}
       </ul>
     {/if}
+
+    <div
+      class="pagination flex-row-center padding-top padding-bottom-lg large-max-width">
+      <button class="icon-direction"
+              disabled={$currentPage === 1}
+              on:click={handlePreviousPage}>
+        <IoIosArrowDropleftCircle />
+      </button>
+      <span class="font-xs font-semi-bold mx-small">{$currentPage}</span>
+      <button class="icon-direction"
+              disabled={$currentPage === $totalPages}
+              on:click={handleNextPage}>
+        <IoIosArrowDroprightCircle />
+      </button>
+    </div>
   </section>
   <Footer />
-</Smoother>
+</section>
 <MailButton />
 
-
 <style>
-	.errormessage {
-		color: red;
+	.opera-font {
+		font-family: 'Opera', sans-serif;
 		}
 
-	.green-text {
-		color: rgb(0, 175, 80);
+	.margin-bottom {
+		margin-bottom: 10px;
+		}
+
+	button {
+		all: unset;
+		}
+
+	.badge {
+		max-width: 40px;
+		height: 20px;
+		padding: 4px 8px 4px 8px;
+		text-align: center;
+		color: var(--black-white);
+		border-radius: 5px;
+		background-color: var(--white-black);
+		}
+
+	.icon-direction {
+		width: 40px;
+		height: 40px;
+		cursor: pointer;
+		color: var(--white-black);
+		}
+
+	.icon-direction:disabled {
+		color: var(--white-black-fade);
+		}
+
+	.icon-direction:not(:disabled):hover {
+		color: var(--orange-blue);
+		}
+
+	.flex-row-center {
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+		justify-content: center;
+		}
+
+	.errormessage {
+		color: oklch(0.628 0.258 29.234);
+		}
+
+	.yellow-blue-text {
+		color: var(--orange-blue);
 		}
 
 	.capitalize-first-letter::first-letter {
@@ -105,61 +217,88 @@
 		text-transform: uppercase;
 		}
 
-	.line-h-1 {
-		line-height: 1.25;
-		}
-
 	.button {
-		width: 100px;
-		padding: 0 0 3px;
+	  position: relative;
+	  display: inline-block;
 		cursor: pointer;
-		transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-		transform: rotate(5deg);
-		transform-origin: center;
+	  vertical-align: middle;
 		text-decoration: none;
-		border: none;
-		border-radius: 5px;
-		background-color: rgb(0, 175, 80);
-		box-shadow: 0 2px 0 rgb(73, 74, 75);
+	  border: 0;
+	  outline: none;
+	  }
+
+	.button.learn-more {
+		padding: 0.75em 1.5em;
+		-webkit-transition: background 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1);
+		transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1);
+		color: #1D1D1D;
+		border: 1px solid var(--white-black);
+		border-radius: 0.5em;
+		background: #FCFCFD;
+		-webkit-transform-style: preserve-3d;
+		transform-style: preserve-3d;
 		}
 
-	.button a {
-		display: block;
-		padding: 0.5rem 1rem;
-	  color: #0066cc;
-		border: 2px solid rgb(73, 74, 75);
-		border-radius: 5px;
-		background: rgb(241, 245, 248);
+	.button.learn-more::before {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		content: '';
+		transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+		-webkit-transform: translate3d(0, 0.75em, -1em);
+		transform: translate3d(0, 0.5em, -0.75em);
+		border-radius: inherit;
+		background: var(--orange-blue);
 		}
 
-	.button:active {
-		padding-bottom: 0;
-		transform: translateY(5px);
-		outline: 0;
+	.button.learn-more:hover {
+		-webkit-transform: translate(0, 0.25em);
+		transform: translate(0, 0.25em);
+		background: #FCFCFD;
+		}
+
+	.button.learn-more:hover::before {
+		-webkit-transform: translate3d(0, 0.5em, -1em);
+		transform: translate3d(0, 0.5em, -1em);
+		}
+
+	.button.learn-more:active {
+		-webkit-transform: translate(0em, 0.75em);
+		transform: translate(0em, 0.75em);
+		background: #FCFCFD;
+		}
+
+	.button.learn-more:active::before {
+		-webkit-transform: translate3d(0, 0, -1em);
+		transform: translate3d(0, 0, -1em);
 		}
 
 	.loading-skeleton {
-		height: 150px;
+	  height: 150px;
 		-webkit-animation: shine-loading-image 2s infinite ease-out;
 		animation: shine-loading-image 2s infinite ease-out;
 		border-radius: 5px;
 		background-image: -webkit-linear-gradient(
 				left,
-				rgb(236, 236, 236) 0px,
-				rgb(244, 244, 244) 40px,
-				rgb(236, 236, 236) 80px
+		oklch(0.943 0 89.876) 0px,
+		oklch(0.967 0 89.876) 40px,
+		oklch(0.943 0 89.876) 80px
 		);
 		background-image: -o-linear-gradient(
 				left,
-				rgb(236, 236, 236) 0px,
-				rgb(244, 244, 244) 40px,
-				rgb(236, 236, 236) 80px
+		oklch(0.943 0 89.876) 0px,
+		oklch(0.967 0 89.876) 40px,
+		oklch(0.943 0 89.876) 80px
 		);
 		background-image: linear-gradient(
 				90deg,
-				rgb(236, 236, 236) 0px,
-				rgb(244, 244, 244) 40px,
-				rgb(236, 236, 236) 80px
+		oklch(0.943 0 89.876) 0px,
+		oklch(0.967 0 89.876) 40px,
+		oklch(0.943 0 89.876) 80px
 		);
 		background-size: 250px;
 		}
@@ -182,10 +321,6 @@
 
 	.font-xl {
 		font-size: calc(clamp(1.7rem, 1.3933rem + 1.2584vw, 2.4rem));
-		}
-
-	.font-light {
-		font-weight: 300;
 		}
 
 	.font-normal {
@@ -215,7 +350,6 @@
 		padding-right: 15px;
 		padding-left: 15px;
 
-		/* Responsive breakpoints */
 		@media (min-width: 540px) {
 			width: 540px;
 			}
@@ -239,7 +373,7 @@
 		}
 
 	.border-top {
-		border-top: 1px solid #000;
+	  border-top: 1px solid var(--white-black);
 		}
 
 	.padding-top {
@@ -250,17 +384,43 @@
 		padding-bottom: 20px;
 		}
 
+	.padding-bottom-lg {
+		padding-bottom: 50px;
+		}
+
 	.padding-y {
 		padding-top: 20px;
 		padding-bottom: 20px;
 		}
 
-	.padding-top-small {
+	.padding-top-sm {
 		padding-top: 5px;
+		}
+
+	.padding-top-md {
+		padding-top: 10px;
+		}
+
+	.padding-bottom-sm {
+		padding-bottom: 5px;
 		}
 
 	.flex-end {
 		display: flex;
 		justify-content: flex-end;
+		}
+
+	li {
+		list-style: none;
+		}
+
+	.mx-small {
+		margin-right: 8px;
+		margin-left: 8px;
+		}
+
+	.border {
+		border: solid 1px var(--orange-blue);
+		box-shadow: 6px 3px 3px #ff3b00;
 		}
 </style>

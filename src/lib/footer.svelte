@@ -7,20 +7,23 @@
 </script>
 
 <section class="padding-y container">
-  <h1 class="padding-y font-xl text-center font-bold">Get In Touch</h1>
+  <h1
+    class="padding-y font-xl text-center font-bold opera-font yellow-blue-text">
+    Get In
+    Touch</h1>
   <div class="flex-col-center padding-y">
     <a
-      class="text-underline font-xs font-light text-black letter-space-xs mail"
-      href="mailto:klevertope@gmail.com"
+      class="text-underline font-xs font-light black-white-text letter-space-xs mail"
+      href="mailto:inquiries@klevertopee.app"
     >
-      klevertope@gmail.com
+      inquiries@klevertopee.app
     </a>
     <a
       class="padding-top"
       href="https://github.com/klevert-ope"
       target="_blank"
     >
-      <div class="icon">
+      <div class="icon-git">
         <IoLogoGithub />
       </div>
     </a>
@@ -33,10 +36,22 @@
 </section>
 
 <style>
-	.icon {
+	.opera-font {
+		font-family: 'Opera', sans-serif;
+		}
+
+	.yellow-blue-text {
+		color: var(--orange-blue);
+		}
+
+	.black-white-text {
+		color: var(--white-black);
+		}
+
+	.icon-git {
 		width: 26px;
 		height: 26px;
-		color: #141414;
+		color: var(--white-black);
 		}
 
 	.font-xs {
@@ -85,13 +100,8 @@
 		padding-bottom: 20px;
 		}
 
-	.text-black {
-		color: #000000;
-		}
-
 	.letter-space-xs {
 		letter-spacing: 4px;
 		}
-
 </style>
 

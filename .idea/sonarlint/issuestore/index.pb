@@ -22,8 +22,6 @@ E
 src/lib/footer.svelte,5\9\59f0e2b76a0006a98e73da5c34d34dd39595ebf9
 B
 src/lib/nav.svelte,7\7\7751ca6595a8faae19fb295abf0828c3b9d7617b
-K
-src/lib/smoothscroll.svelte,3\2\3295fe734dd8cab5317d0c56253e6b7eb749d1bc
 H
 src/lib/toastform.svelte,3\f\3f2620f80b5ea7eb6af8faa55a3449dffd10b390
 T
@@ -36,8 +34,6 @@ E
 build/server/index.js,0\3\03a18947a62396576063fe19122f22bb55fa73cb
 C
 src/routes/store.ts,e\3\e3ffc7b336115e9b1268d8009ae3faafd5235b2f
-L
-src/routes/[id]/+page.svelte,d\3\d307e57b32722f46be8a4e53f97107e1fd14e173
 @
 src/lib/index.ts,9\2\926fc1d355291c95bbfe01b0cc89b3daa5ee565a
 A
@@ -50,10 +46,6 @@ L
 tsconfig.json,6\1\61ebb9fd6e8cf9082658121d5d81e297791dacd0
 J
 src/routes/editor/store.ts,e\1\e1fb1d98d5803d6992785f4a99b9d1d81566c040
-H
-src/routes/[id]/store.ts,5\7\57b0b51ffdd4ba7888c16998c714afec83117f37
-H
-src/routes/[id]/delta.ts,f\1\f19f2ad107ad0d10a566855d164275537345a459
 R
 "build/client/stylesheets/reset.css,c\4\c449ecb9eae6d52ebb6ba85124d20693d979ad3c
 R
@@ -62,8 +54,6 @@ R
 src/app.d.ts,5\0\50d669c9d022d89914a4c9c77a94171b6b438948
 K
 src/service-worker/index.ts,b\c\bca5850930974778c262b125da72ab855e4e144e
-C
-static/offline.html,9\0\90115c03a7906b3fe9ff2236056cf94cd3c81b39
 B
 src/lib/timeago.ts,7\c\7cd7e6ee36c4b9b440d0c23b966eb5e5d9770384
 B
@@ -75,11 +65,33 @@ B
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 J
 src/routes/+page.server.ts,8\9\89e76e39cd14bc766607e88bc89e38bbd08ad834
-O
-src/routes/[id]/+page.server.ts,9\f\9f800ee31e8561efd71690b9bf1282004f8adbb9
 Q
 !src/routes/editor/+page.server.ts,1\b\1ba6e2c5e20dfb2397db57b9e2f27b6f5241d901
 M
 src/routes/editor/form.svelte,4\7\47a41b9beab901ac2056ecac67315812c382113d
 S
 #src/routes/editor/blogPostSchema.ts,d\0\d0cadc08a5eef056aeb55a3e172a9107be6076b2
+H
+src/routes/+error.svelte,8\7\8746d6464c7176a695be89a470dd88d54d52f703
+I
+src/routes/+layout.svelte,5\7\57bd45b2d1884d7c824dd9391c6e95fe5ea8b351
+D
+static/manifest.json,1\2\12d050a0260042d8a26fd1b4ead1ad5cfdbfed54
+Q
+!src/routes/sitemap.xml/+server.js,a\e\ae7406e47d51073628f68e443b9242857346541f
+A
+static/robots.txt,9\5\95c74f27aa1ad6796bdbb967f9a9aa9c847ac592
+H
+src/lib/analytics.svelte,3\f\3f84a927bdcc53deb70228ed30072a21dcea3321
+;
+.prettierrc,2\0\20137a9e94744624390b6748bc96df5ca1579b71
+L
+src/routes/post/+page.svelte,1\1\11c7eb2d16a878cf855c4c3b36ea9302c8e5c47d
+D
+src/lib/theme.svelte,9\9\99f6a7becfddfea3cf0bd6095db7430689d9550c
+O
+src/routes/post/+page.server.ts,b\e\be72e12eca247ba46f9af64d8d4f3f7319d73523
+H
+src/routes/post/delta.ts,0\e\0e5894748fb2904ec14dd5bae6cac446ce90db0f
+H
+src/routes/post/store.ts,9\0\90e38e43d9282a91c2bbecd055f3953ad5dd531b

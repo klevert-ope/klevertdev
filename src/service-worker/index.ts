@@ -1,82 +1,53 @@
-/// <reference types="@sveltejs/kit" />
-import { build, files, version } from "$service-worker";
+import { build, files, prerendered, version } from "$service-worker";
+import { cacheNames, clientsClaim } from "workbox-core";
+import { cleanupOutdatedCaches, precacheAndRoute } from "workbox-precaching";
+import { NavigationRoute, registerRoute } from "workbox-routing";
+import * as navigationPreload from "workbox-navigation-preload";
+import { NetworkFirst, StaleWhileRevalidate } from "workbox-strategies";
+import { CacheableResponsePlugin } from "workbox-cacheable-response";
+import { ExpirationPlugin } from "workbox-expiration";
 
-interface ExtendableEvent extends Event {
-  clientId: string;
-  request: Request;
-  respondsWith: string;
-  result: Response | undefined;
-  source: ServiceWorker | string;
+clientsClaim();
 
-  waitUntil(promise: Promise<void>): void;
+navigationPreload.enable();
 
-  respondWith(response: Response | Promise<Response>): void;
-}
+const navigationCacheName = `${cacheNames.prefix}-navigations-${cacheNames.suffix}`;
+const dynamicContentCacheName = `${cacheNames.prefix}-dynamic-content-${cacheNames.suffix}`;
 
-const CACHE_PREFIX = "cache";
-const CACHE_VERSION = version;
-const CACHE_NAME = `${CACHE_PREFIX}-${CACHE_VERSION}`;
-const ASSETS: string[] = [...build, ...files];
+const navigationRoute = new NavigationRoute(new NetworkFirst({
+  cacheName: navigationCacheName,
+  plugins: [
+    new CacheableResponsePlugin({ statuses: [0, 200] }),
+    new ExpirationPlugin({
+      maxAgeSeconds: 24 * 60 * 60 * 7,
+      purgeOnQuotaError: true
+    })
+  ]
+}));
 
-self.addEventListener<any>("install", (event: ExtendableEvent) => {
-  event.waitUntil(
-    (async () => {
-      const cache = await caches.open(CACHE_NAME);
-      await cache.addAll(ASSETS);
-    })(),
-  );
+registerRoute(navigationRoute);
+
+const dynamicContentStrategy = new StaleWhileRevalidate({
+  cacheName: dynamicContentCacheName,
+  plugins: [
+    new CacheableResponsePlugin({ statuses: [0, 200] }),
+    new ExpirationPlugin({
+      maxAgeSeconds: 24 * 60 * 60 * 7,
+      purgeOnQuotaError: true
+    })
+  ]
 });
 
-self.addEventListener<any>("activate", (event: ExtendableEvent) => {
-  event.waitUntil(
-    (async () => {
-      const cacheKeys = await caches.keys();
-      await Promise.all(
-        cacheKeys.map((key) => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        }),
-      );
-    })(),
-  );
-});
+registerRoute(
+  ({ url }) => url.pathname.startsWith("/post"),
+  dynamicContentStrategy
+);
 
-self.addEventListener<any>("fetch", (event: ExtendableEvent) => {
-  if (event.request.method !== "GET") return;
+const precacheList = [...build, ...files, ...prerendered].map((s) => ({
+  url: s,
+  revision: version
+}));
 
-  event.respondWith(
-    (async () => {
-      const cache = await caches.open(CACHE_NAME);
-      const cachedResponse = await cache.match(event.request);
+precacheAndRoute(precacheList);
 
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-
-      if (shouldCache(event.request)) {
-        try {
-          const response = await fetch(event.request);
-          if (response.status === 200) {
-            await cache.put(event.request, response.clone());
-          }
-          return response;
-        } catch (err) {
-          return (
-            (await cache.match(event.request)) ??
-            (await cache.match("/offline.html")) ??
-            new Response("Error", { status: 500 })
-          );
-        }
-      }
-
-      return fetch(event.request);
-    })(),
-  );
-});
-
-function shouldCache(request: Request) {
-  return (
-    request.method === "GET" && request.url.includes("https://klevertopee.com/")
-  );
-}
+cleanupOutdatedCaches();

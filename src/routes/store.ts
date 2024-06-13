@@ -16,5 +16,9 @@ export interface PostsData {
 
 
 export const posts = writable<Post[]>([]);
+export const paginatedPosts = writable<Post[]>([]);
 export const error = writable<string | null>(null);
 export const isLoading = writable(true);
+export const currentPage = writable(1);
+export const totalPages = writable(0);
+

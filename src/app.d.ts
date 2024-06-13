@@ -10,6 +10,7 @@ declare global {
     declare module "@types/quill/*";
     declare module "$env/*";
     declare module "sveltekit-superforms/*";
+    declare module "@types/gtag.js/*";
 
     interface Error {
       code: string;

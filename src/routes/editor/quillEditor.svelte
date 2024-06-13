@@ -83,15 +83,23 @@
 </label>
 <textarea hidden id="body" name="body"></textarea>
 <div bind:this={$QuillEditor} id="editorBody"></div>
-<p class="font-xs flex-end">{$wordCountBody}/1500 Words</p>
+<p class="font-xs flex-end">{$wordCountBody}/10000 Words</p>
 
 <style>
+	#editorBody {
+		border: 1px solid var(--white-black);
+		background: white;
+		}
 	.font-xs {
 		font-size: calc(clamp(0.65rem, 0.6062rem + 0.1798vw, 0.75rem));
 		}
 
 	.padding-top {
 		padding-top: 20px;
+		}
+
+	label {
+		color: var(--orange-blue);
 		}
 
 	.flex-end {
