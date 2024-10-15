@@ -9,11 +9,9 @@
   import Footer from "$lib/footer.svelte";
   import { errorMessage, successMessage } from "./store";
   import ToastForm from "$lib/toastform.svelte";
-  import Nav from "$lib/nav.svelte";
 </script>
 
 <section>
-  <Nav />
   <section>
     <h1 class="font-bold text-center font-lg padding-y text-orange">Editor</h1>
     <EditorForm />

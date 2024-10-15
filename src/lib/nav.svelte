@@ -3,17 +3,19 @@
   import Theme from "$lib/theme.svelte";
 </script>
 
+
 <nav>
   <div
-    class="font-md font-medium padding-top padding-bottom container flex-row-between bg-blur">
-  <a aria-current={$page.url.pathname === '/'}
-     href="/"
-  >
-    /həʊm/
-  </a>
+    class="font-md font-medium padding-top padding-bottom flex-row-between container bg-blur">
+    <a aria-current={$page.url.pathname === '/'}
+       aria-label="home page"
+       data-sveltekit-preload-data
+       href="/"
+    >
+      /həʊm/
+    </a>
     <Theme />
   </div>
-  <div class="border-top-out container"></div>
 </nav>
 
 
@@ -22,26 +24,34 @@
 		position: sticky;
 		z-index: 999;
 		top: 0;
+	  margin-bottom: 15px;
 		}
 
-	.bg-blur {
-		backdrop-filter: blur(5px);
-		-webkit-backdrop-filter: blur(5px);
+  .bg-blur {
+	  transition: backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
+	  backdrop-filter: blur(5px);
+	  -webkit-backdrop-filter: blur(5px);
+	  view-transition-name: div;
 		}
 
-	a:focus {
+  a:focus {
 		outline: none;
 		}
 
 	nav a {
 		transition: color 0.3s ease;
 		text-decoration: underline;
-		color: var(--white-black);
+	  color: var(--white-black);
 		}
 
 	nav a:hover {
 	  color: var(--orange-blue);
 		}
+
+  nav div {
+	  border-bottom: 2px solid var(--orange-blue);
+	  border-radius: 5px;
+	  }
 
   .font-md {
 	  font-size: calc(clamp(1.1rem, 1.0124rem + 0.3596vw, 1.3rem));
@@ -84,11 +94,5 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		}
-
-	.border-top-out {
-		padding: 10px;
-		border-top: solid 2px var(--orange-blue);
-		border-radius: 200px;
 		}
 </style>

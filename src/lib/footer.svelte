@@ -14,21 +14,23 @@
   <div class="flex-col-center padding-y">
     <a
       class="text-underline font-xs font-light black-white-text letter-space-xs mail"
-      href="mailto:inquiries@klevertopee.app"
+      aria-label="email address"
+      href="mailto:info@klevertopee.app"
     >
-      inquiries@klevertopee.app
+      info@klevertopee.app
     </a>
     <a
-      class="padding-top"
+      aria-label="github link"
       href="https://github.com/klevert-ope"
       target="_blank"
+      class="margin-top"
     >
       <div class="icon-git">
         <IoLogoGithub />
       </div>
     </a>
   </div>
-  <div class="padding-top flex-col-center">
+  <div class="margin-top flex-col-center">
     <small class="font-xs font-semi-bold">
       Klevert &copy; {currentYear} All rights reserved.
     </small>
@@ -91,8 +93,8 @@
 		justify-content: center;
 		}
 
-	.padding-top {
-		padding-top: 20px;
+  .margin-top {
+	  margin-top: 20px;
 		}
 
 	.padding-y {

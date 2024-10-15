@@ -15,19 +15,29 @@
 
 <script lang="ts">
   import { onMount } from "svelte";
+  import { writable } from "svelte/store";
   import type { PostData } from "./store";
   import { error, isLoading, post } from "./store";
   import Footer from "$lib/footer.svelte";
-  import Nav from "$lib/nav.svelte";
   import { convertDeltaToHtml } from "./delta";
 
   export let data: PostData;
   let bodyHtml = "";
 
+  const readTime = writable(0);
+
+  const calculateReadTime = (text: string) => {
+    const wordsPerMinute = 150;
+    const wordCount = text.split(/\s+/).length;
+    return Math.ceil(wordCount / wordsPerMinute);
+  };
+
   onMount(async () => {
     if (data.success === true && data.post !== null) {
       post.set(data.post);
       bodyHtml = await convertDeltaToHtml(JSON.parse(data.post.body));
+      const plainText = bodyHtml.replace(/<[^>]+>/g, "");
+      readTime.set(calculateReadTime(plainText));
     } else if (data.error !== undefined) {
       error.set(data.error);
     }
@@ -36,7 +46,6 @@
 </script>
 
 <section>
-  <Nav />
   <section class="container h-svh">
     {#if $isLoading}
       <div class="large-max-width">
@@ -49,6 +58,10 @@
       <div class="large-max-width">
         <h1
           class="padding-y yellow-blue-text font-lg font-semi-bold opera-font">{$post.title}</h1>
+        <p class="read-time">
+          Estimated read
+          time: {$readTime} {$readTime === 1 ? 'minute' : 'minutes'}
+        </p>
         <div
           class="padding-bottom font-sm line-h-small post-body">{@html bodyHtml}</div>
       </div>
@@ -57,9 +70,14 @@
   <Footer />
 </section>
 
-
 <style>
-    .opera-font {
+	.read-time {
+		font-size: 0.875rem;
+		margin-bottom: 1rem;
+		color: gray;
+		}
+
+	.opera-font {
 	  font-family: 'Opera', sans-serif;
 	  }
 

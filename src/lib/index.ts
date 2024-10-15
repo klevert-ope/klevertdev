@@ -5,6 +5,5 @@ import "./footer.svelte";
 import "./nav.svelte";
 import "./mailbutton.svelte";
 import "./toastform.svelte";
-import "./analytics.svelte";
 import "./smoothscroll.svelte";
 import "./theme.svelte";

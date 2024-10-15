@@ -1,18 +1,18 @@
-import type { Actions } from "./$types";
 import { env } from "$env/dynamic/private";
 import { fail } from "@sveltejs/kit";
 
 const apiURL = env.VITE_POSTSAPI_URL;
-export const actions: Actions = {
-  default: async ({ request }) => {
-    const data = await request.formData();
-    const title = data.get("title");
-    const excerpt = data.get("excerpt");
-    const body = data.get("body");
-    const token = data.get("token");
 
+export const actions = {
+  default: async ({ request }: { request: Request }) => {
     try {
-      const submission = await fetch(`${apiURL}/posts`, {
+      const data = await request.formData();
+      const title = data.get("title") as string;
+      const excerpt = data.get("excerpt") as string;
+      const body = data.get("body") as string;
+      const token = data.get("token") as string;
+
+      const response = await fetch(`${apiURL}/posts`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -22,17 +22,17 @@ export const actions: Actions = {
         body: JSON.stringify({ title, excerpt, body }),
       });
 
-      if (!submission.ok) {
-        const errorData = await submission.json();
-        return fail(submission.status, {
-          message: errorData.message || "Invalid data",
+      if (!response.ok) {
+        const errorData = await response.json();
+        return fail(response.status, {
+          message: errorData.message || "Failed to create post"
         });
       }
 
       return { success: true, message: "Post created successfully" };
     } catch (error) {
+      console.error("Server error:", error);
       return fail(500, { message: "Server error" });
     }
   },
 };
-

@@ -39,7 +39,7 @@ const dynamicContentStrategy = new StaleWhileRevalidate({
 });
 
 registerRoute(
-  ({ url }) => url.pathname.startsWith("/post"),
+  ({ url }) => url.pathname.startsWith("/[id]"),
   dynamicContentStrategy
 );
 

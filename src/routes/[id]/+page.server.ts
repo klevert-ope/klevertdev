@@ -10,9 +10,9 @@ export async function load({ url }): Promise<PostData> {
   if (!id) {
     return {
       success: false,
-      error: "Missing post ID in the URL.",
+      error: "Missing [id] ID in the URL.",
       post: null,
-      message: "Missing post ID in the URL."
+      message: "Missing [id] ID in the URL."
     };
   }
 
@@ -45,7 +45,7 @@ export async function load({ url }): Promise<PostData> {
       success: false,
       error: error.message,
       post: null,
-      message: "Failed to load post. Please try again later."
+      message: "Failed to load [id]. Please try again later."
     };
   }
 }

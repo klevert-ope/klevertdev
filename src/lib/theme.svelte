@@ -1,31 +1,22 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from "svelte";
-  import { fly } from "svelte/transition";
   import { writable } from "svelte/store";
   import IoIosMoon from "svelte-icons/io/IoIosMoon.svelte";
   import IoIosSunny from "svelte-icons/io/IoIosSunny.svelte";
 
-  let storedTheme: string | null = null;
-  if (typeof window !== "undefined" && "localStorage" in window) {
-    storedTheme = localStorage.getItem("theme");
-  }
-
-  let currentTheme: "light" | "dark" = storedTheme === "dark" ? "dark" : "light";
-
-  const theme = writable<"light" | "dark">(currentTheme);
+  const storedTheme = typeof window !== "undefined" ? localStorage.getItem("theme") : null;
+  const theme = writable<"light" | "dark">(storedTheme === "dark" ? "dark" : "light");
 
   const dispatch = createEventDispatcher();
 
   function toggleTheme() {
-    if (currentTheme === "light") {
-      currentTheme = "dark";
-    } else {
-      currentTheme = "light";
-    }
-    localStorage.setItem("theme", currentTheme);
-    theme.set(currentTheme);
-    document.body.dataset.theme = currentTheme;
-    dispatch("theme", currentTheme);
+    theme.update(current => {
+      const newTheme = current === "light" ? "dark" : "light";
+      localStorage.setItem("theme", newTheme);
+      document.body.dataset.theme = newTheme;
+      dispatch("theme", newTheme);
+      return newTheme;
+    });
   }
 
   function handleKeydown(event: KeyboardEvent) {
@@ -37,44 +28,44 @@
 
   onMount(() => {
     if (typeof document !== "undefined") {
-      document.body.dataset.theme = currentTheme;
+      document.body.dataset.theme = storedTheme === "dark" ? "dark" : "light";
     }
   });
 </script>
 
-{#if $theme === "light"}
-    <div  class="moon"
-          on:click={toggleTheme}
-          on:keydown={handleKeydown}
-          role="button"
-          tabindex="0"
-          transition:fly={{ y: 20, duration: 900 }}
-    >
+<div
+  aria-label="theme toggle"
+  class="theme"
+  on:click={toggleTheme}
+  on:keydown={handleKeydown}
+  role="button"
+  tabindex="0"
+>
+  {#if $theme === "light"}
+    <div class="moon">
     <IoIosMoon/>
     </div>
 {:else}
-  <div  class="sun"
-        on:click={toggleTheme}
-        on:keydown={handleKeydown}
-        role="button"
-        tabindex="0"
-        transition:fly={{ y: 20, duration: 900 }}
-  >
+    <div class="sun">
     <IoIosSunny/>
   </div>
 {/if}
+</div>
 
 <style>
-    .moon{
+	.theme {
+		cursor: pointer;
+		}
+
+	.moon {
         width: 24px;
         height: 24px;
         color: #1D1D1D;
-        cursor: pointer;
         }
+
 	.sun{
 		width: 24px;
 		height: 24px;
 		color: #FCFCFD;
-		cursor: pointer;
 		}
 </style>

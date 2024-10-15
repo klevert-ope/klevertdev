@@ -48,7 +48,7 @@
 </script>
 
 <button class="mailto-button" id="mailto-button" type="button">
-  <a href="mailto:inquiries@klevertopee.app">
+  <a href="mailto:info@klevertopee.app">
     <div class="flex-row">
       <p class="font-xs font-semi-bold padding-right-small">
         Reach Out

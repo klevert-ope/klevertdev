@@ -1,63 +1,60 @@
 <script lang="ts">
   import { afterUpdate, onDestroy, onMount } from "svelte";
   import { editorContent, form, QuillEditor, wordCountBody } from "./store";
+  import { get } from "svelte/store";
 
   let Quill;
 
   $: form.data.body = $editorContent;
 
   const updateWordCount = () => {
-    if ($QuillEditor) {
-      let text: string = $QuillEditor.getText().trim();
+    const editor = get(QuillEditor);
+    if (editor) {
+      const text: string = editor.getText().trim();
       const words: string[] = text.split(/\s+/).filter(word => word.trim() !== "");
       wordCountBody.set(words.length);
     }
   };
 
-  function checkBodyEmpty() {
-    if (QuillEditor) {
-      const text = $QuillEditor.getText().trim();
+  const checkBodyEmpty = () => {
+    const editor = get(QuillEditor);
+    if (editor) {
+      const text = editor.getText().trim();
       const isEmpty = text.length === 0 || !text.replace(/\s/g, "").length;
       if (isEmpty) {
         editorContent.set("");
       }
     }
-  }
+  };
 
   onMount(async () => {
     if (typeof window !== "undefined") {
       Quill = (await import("quill")).default;
 
-      if (QuillEditor !== null && QuillEditor !== undefined) {
-        QuillEditor.set(new Quill("#editorBody", {
-          theme: "snow",
-          placeholder: "Write your post...",
-          modules: {
-            toolbar: [
-              [{ "header": [1, 2, 3, 4, 5, 6, false] }],
-              ["bold", "italic", "underline", "strike"],
-              ["blockquote", "code-block"],
-              [{ "list": "ordered" }, { "list": "bullet" }, { "list": "check" }],
-              [{ "align": [] }],
-              [{ "indent": "-1" }, { "indent": "+1" }],
-              [{ "color": [] }, { "background": [] }],
-              [{ "script": "sub" }, { "script": "super" }],
-              ["link", "image", "video", "formula"],
-              ["clean"]
-            ]
-          }
-        }));
-      }
+      const editor = new Quill("#editorBody", {
+        theme: "snow",
+        placeholder: "Write your post...",
+        modules: {
+          toolbar: [
+            [{ "header": [1, 2, 3, 4, 5, 6, false] }],
+            ["bold", "italic", "underline", "strike"],
+            ["blockquote"],
+            [{ "list": "ordered" }],
+            [{ "color": [] }, { "background": [] }],
+            ["link", "image"],
+            ["clean"]
+          ]
+        }
+      });
+      QuillEditor.set(editor);
 
-      if (QuillEditor !== null && QuillEditor !== undefined) {
-        $QuillEditor.on("text-change", () => {
-          const delta = $QuillEditor.getContents();
-          const deltaJson = JSON.stringify(delta, null, 4);
-          editorContent.set(deltaJson);
-          updateWordCount();
-          checkBodyEmpty();
-        });
-      }
+      editor.on("text-change", () => {
+        const delta = editor.getContents();
+        const deltaJson = JSON.stringify(delta, null, 4);
+        editorContent.set(deltaJson);
+        updateWordCount();
+        checkBodyEmpty();
+      });
     }
   });
 
@@ -71,8 +68,9 @@
   });
 
   onDestroy(() => {
-    if ($QuillEditor !== null && $QuillEditor !== undefined) {
-      $QuillEditor.off("text-change");
+    const editor = get(QuillEditor);
+    if (editor) {
+      editor.off("text-change");
     }
   });
 </script>
@@ -82,7 +80,7 @@
   BODY
 </label>
 <textarea hidden id="body" name="body"></textarea>
-<div bind:this={$QuillEditor} id="editorBody"></div>
+<div id="editorBody"></div>
 <p class="font-xs flex-end">{$wordCountBody}/10000 Words</p>
 
 <style>

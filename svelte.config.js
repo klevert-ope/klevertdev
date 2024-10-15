@@ -11,7 +11,6 @@ const config = {
       precompress: true,
       envPrefix: "",
       polyfill: true,
-      static: "static/stylesheets",
     }),
   },
 };

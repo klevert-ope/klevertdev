@@ -17,7 +17,6 @@
   import { beforeUpdate, onMount } from "svelte";
   import timeSince from "$lib/timeago";
   import Footer from "$lib/footer.svelte";
-  import Nav from "$lib/nav.svelte";
   import MailButton from "$lib/mailbutton.svelte";
   import IoIosArrowDropleftCircle
     from "svelte-icons/io/IoIosArrowDropleftCircle.svelte";
@@ -72,7 +71,6 @@
 </script>
 
 <section>
-  <Nav />
   <section class="container">
     <h1 class="font-xl font-bold padding-top-md yellow-blue-text opera-font">
       Klevert Opee
@@ -141,13 +139,17 @@
       class="pagination flex-row-center padding-top padding-bottom-lg large-max-width">
       <button class="icon-direction"
               disabled={$currentPage === 1}
-              on:click={handlePreviousPage}>
+              aria-label="Previous Blogposts"
+              on:click={handlePreviousPage}
+      >
         <IoIosArrowDropleftCircle />
       </button>
       <span class="font-xs font-semi-bold mx-small">{$currentPage}</span>
       <button class="icon-direction"
               disabled={$currentPage === $totalPages}
-              on:click={handleNextPage}>
+              aria-label="Next Blogposts"
+              on:click={handleNextPage}
+      >
         <IoIosArrowDroprightCircle />
       </button>
     </div>
@@ -170,8 +172,8 @@
 		}
 
 	.badge {
-		max-width: 40px;
-		height: 20px;
+	  max-width: 150px;
+	  height: auto;
 		padding: 4px 8px 4px 8px;
 		text-align: center;
 		color: var(--black-white);

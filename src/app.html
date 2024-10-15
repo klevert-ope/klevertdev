@@ -20,12 +20,297 @@
   <meta content="@klertope_" name="twitter:creator" />
   <link href="%sveltekit.assets%/favicon.ico" rel="icon" type="image/x-icon" />
   <link href="%sveltekit.assets%/sitemap.xml" rel="sitemap" />
-  <link href="%sveltekit.assets%/stylesheets/reset.css" rel="stylesheet" />
-  <link href="%sveltekit.assets%/stylesheets/style.css" rel="stylesheet" />
   <meta content="#1D1D1D" name="theme-color" />
 </head>
 
 <body>
 <div class="content">%sveltekit.body%</div>
 </body>
+
+<style>
+	html {
+		line-height: 1.25;
+		-webkit-text-size-adjust: 100%;
+		}
+
+	:root {
+		font-synthesis: none;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: subpixel-antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		}
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+		min-width: 0;
+		margin: 0;
+		padding: 0;
+		}
+
+	body {
+		margin: 0;
+		}
+
+	main {
+		display: block;
+		}
+
+	hr {
+		overflow: visible;
+		box-sizing: content-box;
+		height: 0;
+		}
+
+	a {
+		cursor: pointer;
+		text-decoration: none;
+		}
+
+	abbr[title] {
+		text-decoration: underline dotted;
+		border-bottom: none;
+		}
+
+	b,
+	strong {
+		font-weight: bolder;
+		}
+
+	code,
+	kbd,
+	samp {
+		font-family: monospace;
+		font-size: 1em;
+		}
+
+	small {
+		font-size: 80%;
+		}
+
+	sub,
+	sup {
+		font-size: 75%;
+		line-height: 0;
+		position: relative;
+		vertical-align: baseline;
+		}
+
+	sub {
+		bottom: -0.25em;
+		}
+
+	sup {
+		top: -0.5em;
+		}
+
+	img {
+		border-style: none;
+		}
+
+	button,
+	input,
+	optgroup,
+	select,
+	textarea {
+		font-family: inherit;
+		font-size: 100%;
+		line-height: 1.15;
+		margin: 0;
+		}
+
+	button,
+	input {
+		overflow: visible;
+		}
+
+	button,
+	select {
+		text-transform: none;
+		}
+
+	button,
+	[type="button"],
+	[type="reset"],
+	[type="submit"] {
+		-webkit-appearance: button;
+		}
+
+	button::-moz-focus-inner,
+	[type="button"]::-moz-focus-inner,
+	[type="reset"]::-moz-focus-inner,
+	[type="submit"]::-moz-focus-inner {
+		padding: 0;
+		border-style: none;
+		}
+
+	button:-moz-focusring,
+	[type="button"]:-moz-focusring,
+	[type="reset"]:-moz-focusring,
+	[type="submit"]:-moz-focusring {
+		outline: 1px dotted ButtonText;
+		}
+
+	fieldset {
+		padding: 0.35em 0.75em 0.625em;
+		}
+
+	legend {
+		display: table;
+		box-sizing: border-box;
+		max-width: 100%;
+		padding: 0;
+		white-space: normal;
+		color: inherit;
+		}
+
+	progress {
+		vertical-align: baseline;
+		}
+
+	textarea {
+		overflow: auto;
+		}
+
+	[type="checkbox"],
+	[type="radio"] {
+		box-sizing: border-box;
+		padding: 0;
+		}
+
+	[type="number"]::-webkit-inner-spin-button,
+	[type="number"]::-webkit-outer-spin-button {
+		height: auto;
+		}
+
+	[type="search"] {
+		outline-offset: -2px;
+		-webkit-appearance: textfield;
+		}
+
+	[type="search"]::-webkit-search-decoration {
+		-webkit-appearance: none;
+		}
+
+	::-webkit-file-upload-button {
+		font: inherit;
+		-webkit-appearance: button;
+		}
+
+	details {
+		display: block;
+		}
+
+	summary {
+		display: list-item;
+		}
+
+	template {
+		display: none;
+		}
+
+	[hidden] {
+		display: none;
+		}
+
+	img,
+	picture,
+	svg,
+	video {
+		display: block;
+		max-width: 100%;
+		}
+
+	p {
+		text-wrap: pretty;
+		}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		text-wrap: balance;
+		}
+
+	::selection {
+		color: #fcfcfc;
+		background-color: #ff3b00;
+		}
+
+	::-moz-selection {
+		color: #fcfcfc;
+		background-color: #ff3b00;
+		}
+
+	::placeholder {
+		font: 10px;
+		}
+
+	body {
+		transition: color 0.9s, background-color 0.9s, transform 0.9s;
+		color: var(--text-color);
+		background-color: var(--bg-color);
+		}
+
+	.content {
+		display: contents;
+		}
+
+	.ql-container.ql-snow {
+		min-height: 40svh;
+		border: none;
+		}
+
+	p:has(img) {
+		max-width: 350px;
+		height: auto;
+		}
+
+	ol li {
+		margin-bottom: 5px;
+		margin-left: 15px;
+		padding: 5px;
+		list-style-type: lower-roman;
+		}
+
+	.ql-code-block-container {
+		font-family: 'Andale Mono', sans-serif;
+		font-size: calc(clamp(0.65rem, 0.6062rem + 0.1798vw, 0.75rem));
+		font-weight: 500;
+		overflow: auto;
+		padding: 5px;
+		transition: color 0.9s, background-color 0.9s, transform 0.9s;
+		white-space: -o-pre-wrap;
+		white-space: -moz-pre-wrap;
+		white-space: pre-wrap;
+		color: var(--yellow-blue-code);
+		border-radius: 8px;
+		background-color: var(--white-black-code);
+		unicode-bidi: -webkit-isolate;
+		unicode-bidi: -moz-isolate;
+		unicode-bidi: isolate;
+		}
+
+	.ql-toolbar {
+		background-color: white;
+		}
+
+	a {
+		color: var(--orange-blue);
+		}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: var(--orange-blue);
+		}
+
+
+</style>
 </html>

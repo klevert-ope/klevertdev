@@ -58,18 +58,19 @@
     successMessage.set("");
 
     if (!result.success) {
-      form.errors = result.error.issues.reduce((acc: typeof initialFormErrors, curr) => {
-        if (curr.path[0] === 'title' && curr.code === 'custom') {
-          acc[curr.path[0]] = curr.message;
-        } else if (curr.path[0] === 'excerpt' && curr.code === 'custom') {
-          acc[curr.path[0]] = curr.message;
-        } else if (curr.path[0] === 'body' && curr.code === 'custom') {
-          acc[curr.path[0]] = curr.message;
-        } else {
-          acc[curr.path[0] as keyof typeof initialFormErrors] = curr.message;
-        }
-        return acc;
-      }, { ...initialFormErrors });
+      form.errors =
+        result.error.issues.reduce((acc: typeof initialFormErrors, curr: any) => {
+          if (curr.path[0] === "Title" && curr.code === "custom") {
+            acc[curr.path[0] as keyof typeof initialFormErrors] = curr.message;
+          } else if (curr.path[0] === "Excerpt" && curr.code === "custom") {
+            acc[curr.path[0] as keyof typeof initialFormErrors] = curr.message;
+          } else if (curr.path[0] === "Body" && curr.code === "custom") {
+            acc[curr.path[0] as keyof typeof initialFormErrors] = curr.message;
+          } else {
+            acc[curr.path[0] as keyof typeof initialFormErrors] = curr.message;
+          }
+          return acc;
+        }, { ...initialFormErrors });
     }
 
     return result.success && !form.errors.title && !form.errors.excerpt &&
@@ -160,7 +161,9 @@
     <button
       class="unset"
       on:click={() => $showPassword = !$showPassword}
-      type="button">
+      aria-label="toggle password visibility"
+      type="button"
+    >
       {#if $showPassword}
         <div class="icon-password flex-col-center">
           <FaRegEye />
@@ -181,7 +184,9 @@
     <button
       class="submit-button"
       disabled={$isSubmitting}
-      type="submit">
+      aria-label="submit post"
+      type="submit"
+    >
       {$isSubmitting ? "Submitting..." : "Submit Post"}
     </button>
   </div>

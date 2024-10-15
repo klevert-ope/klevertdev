@@ -6,7 +6,7 @@
 </svelte:head>
 <script lang="ts">
   import { onNavigate } from "$app/navigation";
-  import GoogleAnalytics from "$lib/analytics.svelte";
+  import Nav from "$lib/nav.svelte";
 
   interface Navigation {
     complete: Promise<void>;
@@ -24,25 +24,21 @@
   });
 </script>
 
-<GoogleAnalytics/>
+<Nav />
 <slot/>
 
 <style global>
 	:root {
 		font-family: Inter, sans-serif;
-		font-feature-settings: 'liga' 1, 'calt' 1;
-		}
-
-  :global([data-theme="light"]) {
+	  font-feature-settings: 'liga' 1, 'calt' 1;
 	  --white-black-fade: #333030;
 	  --white-black: #1D1D1D;
 	  --black-white: #FCFCFD;
 	  --orange-blue: #ff3b00;
 	  --white-black-code: #1D1D1D;
 	  --yellow-blue-code: #fcfcfc;
-	  color: #1D1D1D;
-	  background-color: #f4f0e6;
-	  transition: color 0.9s, background-color 0.9s, transform 0.9s;
+	  --text-color: #1D1D1D;
+	  --bg-color: #f4f0e6;
 	  }
 
   :global([data-theme="dark"]) {
@@ -50,29 +46,27 @@
 	  --white-black: #FCFCFD;
 	  --black-white: #1D1D1D;
 	  --orange-blue: #ff3b00;
-	  --white-black-code: #FFF4ED;
+	  --white-black-code: #f4f0e6;
 	  --yellow-blue-code: #1D1D1D;
-	  background-color: #1D1D1D;
-	  color:  #FCFCFD;
-	  transition: color 0.9s, background-color 0.9s, transform 0.9s;
+	  --bg-color: #1D1D1D;
+	  --text-color: #FCFCFD;
 	  }
 
   @supports (font-variation-settings: normal) {
 		:root { font-family: InterVariable, sans-serif; }
 		}
-	:root::view-transition-old(root) {
-		animation: 90ms cubic-bezier(0.4, 0, 1, 1) both fade-out, 300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-right;
-		}
 
-	:root::view-transition-new(root) {
-		animation: 210ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in, 300ms cubic-bezier(0.4, 0, 0.2, 1) both
-		slide-from-left;
-		}
+  :root::view-transition-old(root) {
+	  animation: 90ms cubic-bezier(0.4, 0, 1, 1) both fade-out, 300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-top;
+	  }
+
+  :root::view-transition-new(root) {
+	  animation: 210ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in, 300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-bottom;
+	  }
 
   @media (prefers-reduced-motion: no-preference) {
 	  :root::view-transition-old(root) {
-		  animation: 90ms cubic-bezier(0.4, 0, 1, 1) both fade-out, 300ms cubic-bezier(0.4, 0, 0.2, 1) both
-		  slide-to-right;
+		animation: 90ms cubic-bezier(0.4, 0, 1, 1) both fade-out, 300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-top;
 		  }
 
 	  :root::view-transition-new(root) {
@@ -81,9 +75,10 @@
 				  0,
 				  0.2,
 				  1
-		  ) both slide-from-left;
+	  ) both slide-from-bottom;
 		  }
 	  }
+
   @keyframes fade-in {
 	  from {
 		  opacity: 0;
@@ -96,15 +91,15 @@
 		  }
 	  }
 
-  @keyframes slide-from-left {
+  @keyframes slide-from-bottom {
 	  from {
-		  transform: translateX(-30px);
+		transform: translateY(100px);
 		  }
 	  }
 
-  @keyframes slide-to-right {
+  @keyframes slide-to-top {
 	  to {
-		  transform: translateX(30px);
+		transform: translateY(-100px);
 		  }
 	  }
 </style>
